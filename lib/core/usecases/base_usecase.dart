@@ -13,3 +13,12 @@ class NoParameters extends Equatable {
   @override
   List<Object?> get props => [];
 }
+
+class UserParameters extends Equatable {
+  final int userId;
+
+  const UserParameters({required this.userId});
+
+  @override
+  List<Object?> get props => [userId];
+}

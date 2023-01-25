@@ -1,6 +1,7 @@
 // ignore: depend_on_referenced_packages
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
+import 'package:e_commerce_app/core/usecases/base_usecase.dart';
 import 'package:e_commerce_app/modules/cart/domain/entities/cart.dart';
 import 'package:e_commerce_app/modules/cart/domain/usecases/get_cart_usecase.dart';
 import 'package:equatable/equatable.dart';
@@ -18,7 +19,7 @@ class CartCubit extends Cubit<CartState> {
   Future<void> getCart(int userId) async {
     emit(CartLoading());
     Either<Failure, Cart> response =
-        await getCartUseCase(CartParameters(userId: userId));
+        await getCartUseCase(UserParameters(userId: userId));
 
     emit(response.fold(
         (failure) => CartError(message: Constants.mapFailureToMsg(failure)),
