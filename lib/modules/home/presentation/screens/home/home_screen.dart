@@ -1,5 +1,6 @@
 import 'package:e_commerce_app/core/utils/app_colors.dart';
 import 'package:e_commerce_app/core/utils/app_strings.dart';
+import 'package:e_commerce_app/modules/auth/presentation/cubit/profile/profile_cubit.dart';
 import 'package:e_commerce_app/modules/cart/presentation/screens/cart/cart_page.dart';
 import 'package:e_commerce_app/modules/auth/presentation/screens/profile/profile_page.dart';
 import 'package:e_commerce_app/modules/products/presentation/screens/products/products_page.dart';
@@ -26,11 +27,15 @@ class _HomeScreenState extends State<HomeScreen> {
   _getCart() async =>
       await BlocProvider.of<CartCubit>(context).getCart(widget.userId);
 
+  _getProfile() async =>
+      await BlocProvider.of<ProfileCubit>(context).getProfile(widget.userId);
+
   @override
   void initState() {
     super.initState();
     _getAllProducts();
     _getCart();
+    _getProfile();
   }
 
   List<Widget> pages = const [

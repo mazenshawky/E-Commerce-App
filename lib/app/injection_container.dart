@@ -3,6 +3,11 @@ import 'package:e_commerce_app/core/api/api_consumer.dart';
 import 'package:e_commerce_app/core/api/app_interceptors.dart';
 import 'package:e_commerce_app/core/api/dio_consumer.dart';
 import 'package:e_commerce_app/core/network/network_info.dart';
+import 'package:e_commerce_app/modules/auth/data/datasources/auth_remote_data_source.dart';
+import 'package:e_commerce_app/modules/auth/data/repository/auth_repository_impl.dart';
+import 'package:e_commerce_app/modules/auth/domain/repository/auth_repository.dart';
+import 'package:e_commerce_app/modules/auth/domain/usecases/get_profile_usecase.dart';
+import 'package:e_commerce_app/modules/auth/presentation/cubit/profile/profile_cubit.dart';
 import 'package:e_commerce_app/modules/cart/data/repository/cart_repository_impl.dart';
 import 'package:e_commerce_app/modules/cart/domain/repository/cart_repository.dart';
 import 'package:e_commerce_app/modules/products/data/datasource/products_remote_data_source.dart';
@@ -31,8 +36,11 @@ Future<void> init() async {
   sl.registerFactory<CartCubit>(() => CartCubit(getCartUseCase: sl()));
   sl.registerFactory<ProductDetailsCubit>(
       () => ProductDetailsCubit(getProductDetailsUseCase: sl()));
+  sl.registerFactory<ProfileCubit>(() => ProfileCubit(getProfileUseCase: sl()));
 
   // Use Cases
+  sl.registerLazySingleton<GetProfileUseCase>(
+      () => GetProfileUseCase(authRepository: sl()));
   sl.registerLazySingleton<GetAllProductsUseCase>(
       () => GetAllProductsUseCase(productsRepository: sl()));
   sl.registerLazySingleton<GetCartUseCase>(
@@ -41,6 +49,10 @@ Future<void> init() async {
       () => GetProductDetailsUseCase(productsRepository: sl()));
 
   // Repositories
+  sl.registerLazySingleton<AuthRepository>(() => AuthRepositoryImpl(
+        networkInfo: sl(),
+        authRemoteDataSource: sl(),
+      ));
   sl.registerLazySingleton<ProductsRepository>(() => ProductsRepositoryImpl(
         networkInfo: sl(),
         productsRemoteDataSource: sl(),
@@ -51,6 +63,8 @@ Future<void> init() async {
       ));
 
   // Data Sources
+  sl.registerLazySingleton<AuthRemoteDataSource>(
+      () => AuthRemoteDataSourceImpl(apiConsumer: sl()));
   sl.registerLazySingleton<ProductsRemoteDataSource>(
       () => ProductsRemoteDataSourceImpl(apiConsumer: sl()));
   sl.registerLazySingleton<CartRemoteDataSource>(

@@ -8,6 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:e_commerce_app/core/utils/app_strings.dart';
 import 'package:e_commerce_app/app/injection_container.dart' as di;
 
+import '../../modules/auth/presentation/cubit/profile/profile_cubit.dart';
 import '../../modules/cart/presentation/cubit/cart/cart_cubit.dart';
 import '../../modules/products/presentation/cubit/products/products_cubit.dart';
 import '../../modules/splash/presentation/screens/splash/splash_screen.dart';
@@ -42,6 +43,9 @@ class AppRoutes {
                     ),
                     BlocProvider(
                       create: (context) => di.sl<CartCubit>(),
+                    ),
+                    BlocProvider(
+                      create: (context) => di.sl<ProfileCubit>(),
                     ),
                   ],
                   // child: HomeScreen(userId: userId),
