@@ -8,6 +8,8 @@ class AppStrings {
   static const String cacheFailure = 'Cache Failure';
   static const String internetFailure = 'Internet Failure';
   static const String unexpectedError = 'Unexpected Error';
+  static const String login = 'Login';
+  static const String signup = 'Sign Up';
   static const String products = 'Products';
   static const String cart = 'Cart';
   static const String profile = 'Profile';

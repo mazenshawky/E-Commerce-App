@@ -1,3 +1,5 @@
+import 'package:e_commerce_app/modules/auth/presentation/screens/login/login_screen.dart';
+import 'package:e_commerce_app/modules/auth/presentation/screens/signup/signup_screen.dart';
 import 'package:e_commerce_app/modules/products/presentation/cubit/product_details/product_details_cubit.dart';
 import 'package:e_commerce_app/modules/home/presentation/screens/home/home_screen.dart';
 import 'package:e_commerce_app/modules/products/presentation/screens/product_details/product_details_screen.dart';
@@ -8,9 +10,13 @@ import 'package:e_commerce_app/app/injection_container.dart' as di;
 
 import '../../modules/cart/presentation/cubit/cart/cart_cubit.dart';
 import '../../modules/products/presentation/cubit/products/products_cubit.dart';
+import '../../modules/splash/presentation/screens/splash/splash_screen.dart';
 
 class Routes {
   static const String initialRoute = '/';
+  static const String loginRoute = '/login';
+  static const String signupRoute = '/signup';
+  static const String homeRoute = '/home';
   static const String productDetailsRoute = '/product-details';
 }
 
@@ -18,6 +24,15 @@ class AppRoutes {
   static Route? onGenerateRoute(RouteSettings routeSettings) {
     switch (routeSettings.name) {
       case Routes.initialRoute:
+        return MaterialPageRoute(builder: (context) => const SplashScreen());
+
+      case Routes.loginRoute:
+        return MaterialPageRoute(builder: (context) => const LoginScreen());
+
+      case Routes.signupRoute:
+        return MaterialPageRoute(builder: (context) => const SignupScreen());
+
+      case Routes.homeRoute:
         // final userId = routeSettings.arguments;
         return MaterialPageRoute(
             builder: ((context) => MultiBlocProvider(
@@ -32,6 +47,7 @@ class AppRoutes {
                   // child: HomeScreen(userId: userId),
                   child: const HomeScreen(userId: 2),
                 )));
+
       case Routes.productDetailsRoute:
         final productId = routeSettings.arguments;
         return MaterialPageRoute(
