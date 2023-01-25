@@ -34,7 +34,7 @@ class AddressModel extends Address {
     required super.city,
     required super.street,
     required super.zipCode,
-    required super.geoLocation,
+    super.geoLocation,
   });
 
   factory AddressModel.fromJson(Map<String, dynamic> json) => AddressModel(

@@ -14,4 +14,7 @@ class Constants {
         return AppStrings.unexpectedError;
     }
   }
+
+  static String adjustText(String name) =>
+      "${name[0].toUpperCase()}${name.substring(1).toLowerCase()}";
 }

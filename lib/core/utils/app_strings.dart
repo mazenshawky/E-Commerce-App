@@ -10,6 +10,13 @@ class AppStrings {
   static const String unexpectedError = 'Unexpected Error';
   static const String login = 'Login';
   static const String signup = 'Sign Up';
+  static const String username = 'Username';
+  static const String password = 'Password';
+  static const String email = 'Email';
+  static const String phone = 'Phone';
+  static const String city = 'City';
+  static const String street = 'Street';
+  static const String zipCode = 'Zip Code';
   static const String products = 'Products';
   static const String cart = 'Cart';
   static const String profile = 'Profile';
@@ -20,6 +27,7 @@ class AppStrings {
   static const String colors = 'Colors';
   static const String addToCart = 'Add to cart';
   static const String checkout = 'Checkout';
+  static const String userInformation = 'User Information';
   static const String changeLanguage = 'Change Language';
   static const String contactUs = 'Contact Us';
   static const String inviteYourFriends = 'Invite Your Friends';

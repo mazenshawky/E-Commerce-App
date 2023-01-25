@@ -1,4 +1,4 @@
-import 'package:e_commerce_app/modules/cart/presentation/components/my_divider.dart';
+import 'package:e_commerce_app/core/widgets/my_divider.dart';
 import 'package:e_commerce_app/modules/products/presentation/cubit/products/products_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
