@@ -7,4 +7,6 @@ class EndPoints {
 
   static String productDetailsPath(int productId) =>
       "$baseUrl/products/$productId";
+
+  static String userProfilePath(int userId) => "$baseUrl/users/$userId";
 }

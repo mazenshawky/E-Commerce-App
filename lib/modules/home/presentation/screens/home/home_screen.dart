@@ -1,7 +1,7 @@
 import 'package:e_commerce_app/core/utils/app_colors.dart';
 import 'package:e_commerce_app/core/utils/app_strings.dart';
 import 'package:e_commerce_app/modules/cart/presentation/screens/cart/cart_page.dart';
-import 'package:e_commerce_app/modules/home/presentation/screens/home/pages/profile_page.dart';
+import 'package:e_commerce_app/modules/auth/presentation/screens/profile/profile_page.dart';
 import 'package:e_commerce_app/modules/products/presentation/screens/products/products_page.dart';
 import 'package:e_commerce_app/modules/home/presentation/screens/home/pages/settings_page.dart';
 import 'package:flutter/material.dart';
