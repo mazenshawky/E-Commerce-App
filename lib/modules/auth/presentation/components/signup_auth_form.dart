@@ -6,7 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/utils/app_strings.dart';
 import '../../../../core/utils/app_values.dart';
-import '../cubit/cubit/signup_cubit.dart';
+import '../cubit/signup/signup_cubit.dart';
 import 'already_have_an_account_check.dart';
 
 class SignupAuthForm extends StatelessWidget {

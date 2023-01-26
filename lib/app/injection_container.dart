@@ -8,7 +8,7 @@ import 'package:e_commerce_app/modules/auth/data/repository/auth_repository_impl
 import 'package:e_commerce_app/modules/auth/domain/repository/auth_repository.dart';
 import 'package:e_commerce_app/modules/auth/domain/usecases/get_profile_usecase.dart';
 import 'package:e_commerce_app/modules/auth/domain/usecases/signup_usecase.dart';
-import 'package:e_commerce_app/modules/auth/presentation/cubit/cubit/signup_cubit.dart';
+import 'package:e_commerce_app/modules/auth/presentation/cubit/login/login_cubit.dart';
 import 'package:e_commerce_app/modules/auth/presentation/cubit/profile/profile_cubit.dart';
 import 'package:e_commerce_app/modules/cart/data/repository/cart_repository_impl.dart';
 import 'package:e_commerce_app/modules/cart/domain/repository/cart_repository.dart';
@@ -18,6 +18,7 @@ import 'package:e_commerce_app/modules/products/domain/repository/products_repos
 import 'package:e_commerce_app/modules/products/domain/usecases/get_all_products_usecase.dart';
 import 'package:e_commerce_app/modules/cart/domain/usecases/get_cart_usecase.dart';
 import 'package:e_commerce_app/modules/products/domain/usecases/get_product_details_usecase.dart';
+import '../modules/auth/presentation/cubit/signup/signup_cubit.dart';
 import '../modules/cart/data/datasources/cart_remote_data_source.dart';
 import '../modules/cart/presentation/cubit/cart/cart_cubit.dart';
 import '../modules/products/presentation/cubit/product_details/product_details_cubit.dart';
@@ -33,6 +34,7 @@ final sl = GetIt.instance;
 Future<void> init() async {
   //! Modules
   // Blocs
+  sl.registerFactory<LoginCubit>(() => LoginCubit());
   sl.registerFactory<SignupCubit>(() => SignupCubit(signupUseCase: sl()));
   sl.registerFactory<ProductsCubit>(
       () => ProductsCubit(getAllProductsUseCase: sl()));

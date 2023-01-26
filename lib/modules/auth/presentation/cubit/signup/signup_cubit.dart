@@ -163,7 +163,7 @@ class SignupCubit extends Cubit<SignupState>
   }
 
   @override
-  changePasswordVisibility(bool state) => state
+  void changePasswordVisibility(bool state) => state
       ? _passwordVisibilityStreamController.add(false)
       : _passwordVisibilityStreamController.add(true);
 

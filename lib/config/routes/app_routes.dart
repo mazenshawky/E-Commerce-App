@@ -8,8 +8,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:e_commerce_app/core/utils/app_strings.dart';
 import 'package:e_commerce_app/app/injection_container.dart' as di;
 
-import '../../modules/auth/presentation/cubit/cubit/signup_cubit.dart';
+import '../../modules/auth/presentation/cubit/login/login_cubit.dart';
 import '../../modules/auth/presentation/cubit/profile/profile_cubit.dart';
+import '../../modules/auth/presentation/cubit/signup/signup_cubit.dart';
 import '../../modules/cart/presentation/cubit/cart/cart_cubit.dart';
 import '../../modules/products/presentation/cubit/products/products_cubit.dart';
 import '../../modules/splash/presentation/screens/splash/splash_screen.dart';
@@ -29,41 +30,49 @@ class AppRoutes {
         return MaterialPageRoute(builder: (context) => const SplashScreen());
 
       case Routes.loginRoute:
-        return MaterialPageRoute(builder: (context) => const LoginScreen());
+        return MaterialPageRoute(
+          builder: (context) => BlocProvider(
+            create: (context) => di.sl<LoginCubit>(),
+            child: const LoginScreen(),
+          ),
+        );
 
       case Routes.signupRoute:
         return MaterialPageRoute(
-            builder: (context) => BlocProvider(
-                  create: (context) => di.sl<SignupCubit>(),
-                  child: const SignupScreen(),
-                ));
+          builder: (context) => BlocProvider(
+            create: (context) => di.sl<SignupCubit>(),
+            child: const SignupScreen(),
+          ),
+        );
 
       case Routes.homeRoute:
         // final userId = routeSettings.arguments;
         return MaterialPageRoute(
-            builder: ((context) => MultiBlocProvider(
-                  providers: [
-                    BlocProvider(
-                      create: (context) => di.sl<ProductsCubit>(),
-                    ),
-                    BlocProvider(
-                      create: (context) => di.sl<CartCubit>(),
-                    ),
-                    BlocProvider(
-                      create: (context) => di.sl<ProfileCubit>(),
-                    ),
-                  ],
-                  // child: HomeScreen(userId: userId),
-                  child: const HomeScreen(userId: 2),
-                )));
+          builder: (context) => MultiBlocProvider(
+            providers: [
+              BlocProvider(
+                create: (context) => di.sl<ProductsCubit>(),
+              ),
+              BlocProvider(
+                create: (context) => di.sl<CartCubit>(),
+              ),
+              BlocProvider(
+                create: (context) => di.sl<ProfileCubit>(),
+              ),
+            ],
+            // child: HomeScreen(userId: userId),
+            child: const HomeScreen(userId: 2),
+          ),
+        );
 
       case Routes.productDetailsRoute:
         final productId = routeSettings.arguments;
         return MaterialPageRoute(
-            builder: (context) => BlocProvider(
-                  create: (context) => di.sl<ProductDetailsCubit>(),
-                  child: ProductDetailsScreen(productId: productId),
-                ));
+          builder: (context) => BlocProvider(
+            create: (context) => di.sl<ProductDetailsCubit>(),
+            child: ProductDetailsScreen(productId: productId),
+          ),
+        );
       default:
         return undefinedRoute();
     }
@@ -71,8 +80,9 @@ class AppRoutes {
 
   static Route<dynamic> undefinedRoute() {
     return MaterialPageRoute(
-        builder: ((context) => const Scaffold(
-              body: Center(child: Text(AppStrings.noRouteFound)),
-            )));
+      builder: (context) => const Scaffold(
+        body: Center(child: Text(AppStrings.noRouteFound)),
+      ),
+    );
   }
 }

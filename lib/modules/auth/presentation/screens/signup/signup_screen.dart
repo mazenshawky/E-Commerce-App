@@ -11,7 +11,7 @@ import '../../../../../core/widgets/state_animation_image.dart';
 import '../../../../../core/widgets/state_error_button.dart';
 import '../../../../../core/widgets/state_text.dart';
 import '../../components/signup_auth_form.dart';
-import '../../cubit/cubit/signup_cubit.dart';
+import '../../cubit/signup/signup_cubit.dart';
 
 class SignupScreen extends StatefulWidget {
   const SignupScreen({Key? key}) : super(key: key);
@@ -39,7 +39,7 @@ class _SignupScreenState extends State<SignupScreen> {
     _bind();
   }
 
-  _bind() {
+  void _bind() {
     _firstnameController.addListener(() => BlocProvider.of<SignupCubit>(context)
         .setFirstname(_firstnameController.text));
 

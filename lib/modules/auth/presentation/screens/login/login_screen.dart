@@ -1,7 +1,9 @@
 import 'package:e_commerce_app/core/utils/app_fonts.dart';
 import 'package:e_commerce_app/core/utils/app_strings.dart';
 import 'package:e_commerce_app/modules/auth/presentation/components/login_auth_form.dart';
+import 'package:e_commerce_app/modules/auth/presentation/cubit/login/login_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../core/utils/app_values.dart';
 import '../../../../../core/widgets/my_header.dart';
@@ -16,7 +18,22 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+
   final _loginFormKey = GlobalKey<FormState>();
+
+  @override
+  void initState() {
+    super.initState();
+    _bind();
+  }
+
+  void _bind() {
+    _usernameController.addListener(() => BlocProvider.of<LoginCubit>(context)
+        .setUsername(_usernameController.text));
+
+    _passwordController.addListener(() => BlocProvider.of<LoginCubit>(context)
+        .setPassword(_passwordController.text));
+  }
 
   @override
   Widget build(BuildContext context) {
