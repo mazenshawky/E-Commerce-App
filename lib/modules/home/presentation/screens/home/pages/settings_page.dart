@@ -1,6 +1,7 @@
 import 'package:e_commerce_app/core/widgets/my_list_tile.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../../../config/routes/app_routes.dart';
 import '../../../../../../core/utils/app_strings.dart';
 import '../../../../../../core/utils/app_values.dart';
 
@@ -13,7 +14,8 @@ class SettingsPage extends StatelessWidget {
 
   void _inviteFriends() {}
 
-  void _logout() {}
+  void _logout(BuildContext context) =>
+      Navigator.of(context).pushReplacementNamed(Routes.loginRoute);
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +41,7 @@ class SettingsPage extends StatelessWidget {
           MyListTile(
             leadingIcon: Icons.logout_outlined,
             title: AppStrings.logout,
-            onTap: () => _logout(),
+            onTap: () => _logout(context),
           ),
         ],
       ),

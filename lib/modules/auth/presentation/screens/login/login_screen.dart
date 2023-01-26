@@ -14,10 +14,8 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  final TextEditingController _loginUsernameController =
-      TextEditingController();
-  final TextEditingController _loginPasswordController =
-      TextEditingController();
+  final TextEditingController _usernameController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
   final _loginFormKey = GlobalKey<FormState>();
 
   @override
@@ -51,8 +49,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     const SizedBox(height: AppSize.s30),
                     LoginAuthForm(
-                      loginUsernameController: _loginUsernameController,
-                      loginPasswordController: _loginPasswordController,
+                      usernameController: _usernameController,
+                      passwordController: _passwordController,
                       loginFormKey: _loginFormKey,
                     ),
                   ],

@@ -35,13 +35,13 @@ class Address extends Equatable {
   final String city;
   final String street;
   final String zipCode;
-  final GeoLocation geoLocation;
+  final GeoLocation? geoLocation;
 
   const Address({
     required this.city,
     required this.street,
     required this.zipCode,
-    required this.geoLocation,
+    this.geoLocation,
   });
 
   @override

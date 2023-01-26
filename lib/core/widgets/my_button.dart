@@ -19,11 +19,7 @@ class MyButton extends StatelessWidget {
         width: AppSize.s200,
         height: AppSize.s48,
         child: ElevatedButton(
-          onPressed: () {
-            if (onPress != null) {
-              onPress!();
-            }
-          },
+          onPressed: onPress != null ? () => onPress!() : null,
           child: Text(text),
         ),
       ),
