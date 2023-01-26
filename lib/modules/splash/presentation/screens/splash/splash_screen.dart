@@ -30,7 +30,6 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-      backgroundColor: AppColors.backgorundColor,
       body: Center(
           child: Icon(
         Icons.shopping_cart,

@@ -9,6 +9,7 @@ ThemeData appTheme() {
   return ThemeData(
     // main colors
     primaryColor: AppColors.primary,
+    splashColor: AppColors.primary,
     scaffoldBackgroundColor: AppColors.backgorundColor,
 
     // font
@@ -39,6 +40,7 @@ ThemeData appTheme() {
     inputDecorationTheme: InputDecorationTheme(
       filled: true,
       fillColor: AppColors.whiteColor,
+      iconColor: AppColors.blackColor45,
       hintStyle: TextStyle(
         fontSize: FontSize.s14,
         color: AppColors.lightGrey,

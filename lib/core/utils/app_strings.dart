@@ -8,6 +8,8 @@ class AppStrings {
   static const String cacheFailure = 'Cache Failure';
   static const String internetFailure = 'Internet Failure';
   static const String unexpectedError = 'Unexpected Error';
+  static const String hello = 'Hello';
+  static const String loginIntoYourAccount = 'Login into your account';
   static const String login = 'Login';
   static const String signup = 'Sign Up';
   static const String username = 'Username';
@@ -17,6 +19,12 @@ class AppStrings {
   static const String city = 'City';
   static const String street = 'Street';
   static const String zipCode = 'Zip Code';
+  static const String invalidUsername = 'Username should be at least 3 chars';
+  static const String emptyUsername = 'Username cannot be empty';
+  static const String invalidPassword = 'Password should be at least 6 chars';
+  static const String emptyPassword = 'Password cannot be empty';
+  static const String noAccount = "Don't have an Account ? ";
+  static const String haveAnAccount = 'Already have an Account ? ';
   static const String products = 'Products';
   static const String cart = 'Cart';
   static const String profile = 'Profile';
