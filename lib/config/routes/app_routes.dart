@@ -8,6 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:e_commerce_app/core/utils/app_strings.dart';
 import 'package:e_commerce_app/app/injection_container.dart' as di;
 
+import '../../modules/auth/presentation/cubit/cubit/signup_cubit.dart';
 import '../../modules/auth/presentation/cubit/profile/profile_cubit.dart';
 import '../../modules/cart/presentation/cubit/cart/cart_cubit.dart';
 import '../../modules/products/presentation/cubit/products/products_cubit.dart';
@@ -31,7 +32,11 @@ class AppRoutes {
         return MaterialPageRoute(builder: (context) => const LoginScreen());
 
       case Routes.signupRoute:
-        return MaterialPageRoute(builder: (context) => const SignupScreen());
+        return MaterialPageRoute(
+            builder: (context) => BlocProvider(
+                  create: (context) => di.sl<SignupCubit>(),
+                  child: const SignupScreen(),
+                ));
 
       case Routes.homeRoute:
         // final userId = routeSettings.arguments;

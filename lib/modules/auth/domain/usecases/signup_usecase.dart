@@ -6,10 +6,10 @@ import '../../../../core/error/failure.dart';
 import '../../../../core/usecases/base_usecase.dart';
 import '../repository/auth_repository.dart';
 
-class GetProfileUseCase implements BaseUseCase<void, SignupParameters> {
+class SignupUseCase implements BaseUseCase<void, SignupParameters> {
   final AuthRepository authRepository;
 
-  GetProfileUseCase({required this.authRepository});
+  SignupUseCase({required this.authRepository});
 
   @override
   Future<Either<Failure, void>> call(SignupParameters parameters) async {
