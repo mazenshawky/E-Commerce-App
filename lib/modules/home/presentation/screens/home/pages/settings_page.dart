@@ -1,4 +1,4 @@
-import 'package:e_commerce_app/core/utils/app_colors.dart';
+import 'package:e_commerce_app/core/widgets/my_list_tile.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../../core/utils/app_strings.dart';
@@ -21,39 +21,24 @@ class SettingsPage extends StatelessWidget {
       child: ListView(
         padding: const EdgeInsets.all(AppPadding.p8),
         children: [
-          ListTile(
-            leading:
-                const Icon(Icons.language_outlined, color: AppColors.primary),
-            title: Text(
-              AppStrings.changeLanguage,
-              style: Theme.of(context).textTheme.bodyLarge,
-            ),
+          MyListTile(
+            leadingIcon: Icons.language_outlined,
+            title: AppStrings.changeLanguage,
             onTap: () => _changeLanguage(),
           ),
-          ListTile(
-            leading: const Icon(Icons.call_missed_outgoing_outlined,
-                color: AppColors.primary),
-            title: Text(
-              AppStrings.contactUs,
-              style: Theme.of(context).textTheme.bodyLarge,
-            ),
+          MyListTile(
+            leadingIcon: Icons.call_missed_outgoing_outlined,
+            title: AppStrings.contactUs,
             onTap: () => _contactUs(),
           ),
-          ListTile(
-            leading: const Icon(Icons.share_outlined, color: AppColors.primary),
-            title: Text(
-              AppStrings.inviteYourFriends,
-              style: Theme.of(context).textTheme.bodyLarge,
-            ),
+          MyListTile(
+            leadingIcon: Icons.share_outlined,
+            title: AppStrings.inviteYourFriends,
             onTap: () => _inviteFriends(),
           ),
-          ListTile(
-            leading:
-                const Icon(Icons.logout_outlined, color: AppColors.primary),
-            title: Text(
-              AppStrings.logout,
-              style: Theme.of(context).textTheme.bodyLarge,
-            ),
+          MyListTile(
+            leadingIcon: Icons.logout_outlined,
+            title: AppStrings.logout,
             onTap: () => _logout(),
           ),
         ],

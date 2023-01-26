@@ -1,5 +1,5 @@
 import 'package:e_commerce_app/core/utils/constants.dart';
-import 'package:e_commerce_app/modules/auth/presentation/components/profile_list_item.dart';
+import 'package:e_commerce_app/core/widgets/my_list_tile.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../core/utils/app_colors.dart';
@@ -23,32 +23,32 @@ class ProfileCard extends StatelessWidget {
             ...ListTile.divideTiles(
               color: AppColors.lightWhite,
               tiles: [
-                ProfileListItem(
+                MyListTile(
                   leadingIcon: Icons.person,
                   title: AppStrings.username,
                   subtitle: user.username,
                 ),
-                ProfileListItem(
+                MyListTile(
                   leadingIcon: Icons.email,
                   title: AppStrings.email,
                   subtitle: user.email,
                 ),
-                ProfileListItem(
+                MyListTile(
                   leadingIcon: Icons.phone,
                   title: AppStrings.phone,
                   subtitle: user.phone,
                 ),
-                ProfileListItem(
+                MyListTile(
                   leadingIcon: Icons.location_city,
                   title: AppStrings.city,
                   subtitle: Constants.adjustText(user.address.city),
                 ),
-                ProfileListItem(
+                MyListTile(
                   leadingIcon: Icons.add_road,
                   title: AppStrings.street,
                   subtitle: Constants.adjustText(user.address.street),
                 ),
-                ProfileListItem(
+                MyListTile(
                   leadingIcon: Icons.location_history,
                   title: AppStrings.zipCode,
                   subtitle: user.address.zipCode,

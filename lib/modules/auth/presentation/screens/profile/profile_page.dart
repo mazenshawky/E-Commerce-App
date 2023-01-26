@@ -3,6 +3,7 @@ import 'package:e_commerce_app/core/utils/app_fonts.dart';
 import 'package:e_commerce_app/core/utils/app_strings.dart';
 import 'package:e_commerce_app/core/utils/app_values.dart';
 import 'package:e_commerce_app/core/utils/constants.dart';
+import 'package:e_commerce_app/core/widgets/my_header.dart';
 import 'package:e_commerce_app/modules/auth/presentation/components/profile_card.dart';
 import 'package:e_commerce_app/modules/auth/presentation/components/profile_image.dart';
 import 'package:e_commerce_app/modules/auth/presentation/cubit/profile/profile_cubit.dart';
@@ -33,6 +34,7 @@ class _ProfilePageState extends State<ProfilePage> {
           return SingleChildScrollView(
             child: Stack(
               children: [
+                const MyHeader(height: AppSize.s100),
                 Container(
                   alignment: Alignment.center,
                   margin: const EdgeInsets.symmetric(
