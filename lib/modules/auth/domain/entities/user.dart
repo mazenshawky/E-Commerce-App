@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 
 class User extends Equatable {
-  final int? id;
+  final int id;
   final String email;
   final String username;
   final Name name;
@@ -9,7 +9,7 @@ class User extends Equatable {
   final String phone;
 
   const User({
-    this.id,
+    required this.id,
     required this.email,
     required this.username,
     required this.name,
@@ -35,13 +35,13 @@ class Address extends Equatable {
   final String city;
   final String street;
   final String zipCode;
-  final GeoLocation? geoLocation;
+  final GeoLocation geoLocation;
 
   const Address({
     required this.city,
     required this.street,
     required this.zipCode,
-    this.geoLocation,
+    required this.geoLocation,
   });
 
   @override

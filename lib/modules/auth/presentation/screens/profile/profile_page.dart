@@ -34,7 +34,9 @@ class _ProfilePageState extends State<ProfilePage> {
           return SingleChildScrollView(
             child: Stack(
               children: [
-                const MyHeader(height: AppSize.s100),
+                const SizedBox(
+                    height: AppSize.s100,
+                    child: MyHeader(height: AppSize.s100)),
                 Container(
                   alignment: Alignment.center,
                   margin: const EdgeInsets.symmetric(

@@ -2,7 +2,7 @@ import '../../domain/entities/user.dart';
 
 class UserModel extends User {
   const UserModel({
-    super.id,
+    required super.id,
     required super.email,
     required super.username,
     required super.name,
@@ -34,7 +34,7 @@ class AddressModel extends Address {
     required super.city,
     required super.street,
     required super.zipCode,
-    super.geoLocation,
+    required super.geoLocation,
   });
 
   factory AddressModel.fromJson(Map<String, dynamic> json) => AddressModel(
