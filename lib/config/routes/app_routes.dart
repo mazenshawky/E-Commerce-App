@@ -46,7 +46,6 @@ class AppRoutes {
         );
 
       case Routes.homeRoute:
-        // final userId = routeSettings.arguments;
         return MaterialPageRoute(
           builder: (context) => MultiBlocProvider(
             providers: [
@@ -60,7 +59,6 @@ class AppRoutes {
                 create: (context) => di.sl<ProfileCubit>(),
               ),
             ],
-            // child: HomeScreen(userId: userId),
             child: const HomeScreen(userId: 2),
           ),
         );

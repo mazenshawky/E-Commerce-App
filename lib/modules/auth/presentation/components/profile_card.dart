@@ -41,17 +41,17 @@ class ProfileCard extends StatelessWidget {
                 MyListTile(
                   leadingIcon: Icons.location_city,
                   title: AppStrings.city,
-                  subtitle: Constants.adjustText(user.address.city),
+                  subtitle: Constants.adjustText(user.address!.city),
                 ),
                 MyListTile(
                   leadingIcon: Icons.add_road,
                   title: AppStrings.street,
-                  subtitle: Constants.adjustText(user.address.street),
+                  subtitle: Constants.adjustText(user.address!.street),
                 ),
                 MyListTile(
                   leadingIcon: Icons.location_history,
                   title: AppStrings.zipCode,
-                  subtitle: user.address.zipCode,
+                  subtitle: user.address!.zipCode,
                 ),
               ],
             ),

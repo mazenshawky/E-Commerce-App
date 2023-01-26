@@ -170,7 +170,7 @@ class SignupCubit extends Cubit<SignupState>
   @override
   void signup() async {
     emit(SignupLoading());
-    Either<Failure, void> response = await signupUseCase(SignupParameters(
+    Either<Failure, User> response = await signupUseCase(SignupRequest(
       email: signupObject.email,
       username: signupObject.username,
       password: signupObject.password,
@@ -188,7 +188,7 @@ class SignupCubit extends Cubit<SignupState>
 
     emit(response.fold(
       (failure) => SignupError(message: Constants.mapFailureToMsg(failure)),
-      (user) => SignupSuccess(),
+      (user) => SignupSuccess(user: user),
     ));
   }
 

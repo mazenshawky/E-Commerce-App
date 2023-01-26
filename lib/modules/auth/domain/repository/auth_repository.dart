@@ -6,7 +6,7 @@ import '../../../../core/error/failure.dart';
 import '../usecases/signup_usecase.dart';
 
 abstract class AuthRepository {
-  Future<Either<Failure, void>> signup(SignupParameters parameters);
+  Future<Either<Failure, User>> signup(SignupRequest signupRequest);
 
   Future<Either<Failure, User>> getProfile(UserParameters parameters);
 }

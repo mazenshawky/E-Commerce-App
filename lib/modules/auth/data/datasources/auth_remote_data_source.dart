@@ -7,7 +7,7 @@ import '../../../../core/usecases/base_usecase.dart';
 import '../../domain/entities/user.dart';
 
 abstract class AuthRemoteDataSource {
-  Future<void> signup(SignupParameters parameters);
+  Future<User> signup(SignupRequest signupRequest);
 
   Future<User> getProfile(UserParameters parameters);
 }
@@ -18,14 +18,34 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   AuthRemoteDataSourceImpl({required this.apiConsumer});
 
   @override
-  Future<void> signup(SignupParameters parameters) async =>
-      await apiConsumer.get(EndPoints.signupPath);
+  Future<User> signup(SignupRequest signupRequest) async {
+    final response = await apiConsumer.post(
+      EndPoints.signupPath,
+      body: {
+        'email': signupRequest.email,
+        'username': signupRequest.username,
+        'password': signupRequest.password,
+        'name': {
+          'firstname': signupRequest.name.firstname,
+          'lastname': signupRequest.name.lastname
+        },
+        'address': {
+          'city': signupRequest.address.city,
+          'street': signupRequest.address.street,
+          'zipcode': signupRequest.address.zipCode,
+        },
+        'phone': signupRequest.phone
+      },
+    );
+
+    return UserModel.signupFromJson(response);
+  }
 
   @override
   Future<User> getProfile(UserParameters parameters) async {
     final response =
         await apiConsumer.get(EndPoints.userProfilePath(parameters.userId));
 
-    return UserModel.fromJson(response);
+    return UserModel.profileFromJson(response);
   }
 }

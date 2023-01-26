@@ -112,7 +112,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                           _buildTitleAndPriceWidget(state.productDetails),
                           _buildDescription(state.productDetails),
                           const SizedBox(height: AppPadding.p24),
-                          const MyButton(text: AppStrings.addToCart),
+                          MyButton(onPress: () {}, text: AppStrings.addToCart),
                         ],
                       ),
                     ),

@@ -19,10 +19,10 @@ class AuthRepositoryImpl implements AuthRepository {
   });
 
   @override
-  Future<Either<Failure, void>> signup(SignupParameters parameters) async {
+  Future<Either<Failure, User>> signup(SignupRequest signupRequest) async {
     if (await networkInfo.isConnected) {
       try {
-        final response = await authRemoteDataSource.signup(parameters);
+        final response = await authRemoteDataSource.signup(signupRequest);
         return Right(response);
       } on ServerException {
         return Left(ServerFailure());

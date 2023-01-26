@@ -6,18 +6,18 @@ import '../../../../core/error/failure.dart';
 import '../../../../core/usecases/base_usecase.dart';
 import '../repository/auth_repository.dart';
 
-class SignupUseCase implements BaseUseCase<void, SignupParameters> {
+class SignupUseCase implements BaseUseCase<void, SignupRequest> {
   final AuthRepository authRepository;
 
   SignupUseCase({required this.authRepository});
 
   @override
-  Future<Either<Failure, void>> call(SignupParameters parameters) async {
-    return await authRepository.signup(parameters);
+  Future<Either<Failure, User>> call(SignupRequest signupRequest) async {
+    return await authRepository.signup(signupRequest);
   }
 }
 
-class SignupParameters extends Equatable {
+class SignupRequest extends Equatable {
   final String email;
   final String username;
   final String password;
@@ -25,7 +25,7 @@ class SignupParameters extends Equatable {
   final Address address;
   final String phone;
 
-  const SignupParameters({
+  const SignupRequest({
     required this.email,
     required this.username,
     required this.password,

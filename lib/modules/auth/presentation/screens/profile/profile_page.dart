@@ -53,7 +53,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            Constants.adjustText(state.user.name.firstname),
+                            Constants.adjustText(state.user.name!.firstname),
                             style: const TextStyle(
                               fontSize: FontSize.s22,
                               fontWeight: FontWeights.fwBold,
@@ -61,7 +61,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           ),
                           const SizedBox(width: AppSize.s8),
                           Text(
-                            Constants.adjustText(state.user.name.lastname),
+                            Constants.adjustText(state.user.name!.lastname),
                             style: const TextStyle(
                               fontSize: FontSize.s22,
                               fontWeight: FontWeights.fwBold,

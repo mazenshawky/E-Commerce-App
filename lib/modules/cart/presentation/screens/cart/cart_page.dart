@@ -63,7 +63,7 @@ class CartPage extends StatelessWidget {
                         ),
                     itemCount: filteredProducts.length),
               ),
-              const MyButton(text: AppStrings.checkout),
+              MyButton(onPress: () {}, text: AppStrings.checkout),
               const SizedBox(height: AppSize.s13),
             ],
           );
