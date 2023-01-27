@@ -4,7 +4,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:e_commerce_app/modules/auth/domain/usecases/login_usecase.dart';
-import 'package:e_commerce_app/modules/auth/presentation/common/freezed_data_classes.dart';
+import 'package:e_commerce_app/modules/auth/presentation/common/auth_freezed_data_classes.dart';
 import 'package:equatable/equatable.dart';
 
 import '../../../../../core/error/failure.dart';

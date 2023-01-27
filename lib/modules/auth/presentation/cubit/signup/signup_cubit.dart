@@ -10,7 +10,7 @@ import 'package:equatable/equatable.dart';
 
 import '../../../../../core/error/failure.dart';
 import '../../../../../core/utils/constants.dart';
-import '../../common/freezed_data_classes.dart';
+import '../../common/auth_freezed_data_classes.dart';
 
 part 'signup_state.dart';
 

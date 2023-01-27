@@ -1,6 +1,7 @@
 import 'package:e_commerce_app/core/utils/app_colors.dart';
 import 'package:e_commerce_app/core/utils/app_values.dart';
 import 'package:e_commerce_app/core/utils/media_query_values.dart';
+import 'package:e_commerce_app/core/widgets/my_app_bar.dart';
 import 'package:e_commerce_app/core/widgets/my_button.dart';
 import 'package:e_commerce_app/modules/products/presentation/cubit/product_details/product_details_cubit.dart';
 import 'package:flutter/material.dart';
@@ -119,15 +120,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: AppColors.transparentColor,
-        title: const Text(
-          AppStrings.productDetails,
-        ),
-        leading: const BackButton(
-          color: AppColors.primary,
-        ),
-      ),
+      appBar: myAppBar(title: AppStrings.productDetails),
       body: BlocBuilder<ProductDetailsCubit, ProductDetailsState>(
         builder: (context, state) {
           if (state is ProductDetailsLoading) {

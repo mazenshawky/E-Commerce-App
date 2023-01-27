@@ -17,9 +17,11 @@ import 'package:e_commerce_app/modules/cart/presentation/cubit/add_to_cart/add_t
 import 'package:e_commerce_app/modules/products/data/datasource/products_remote_data_source.dart';
 import 'package:e_commerce_app/modules/products/data/repository/products_repository_impl.dart';
 import 'package:e_commerce_app/modules/products/domain/repository/products_repository.dart';
+import 'package:e_commerce_app/modules/products/domain/usecases/edit_product_usecase.dart';
 import 'package:e_commerce_app/modules/products/domain/usecases/get_all_products_usecase.dart';
 import 'package:e_commerce_app/modules/cart/domain/usecases/get_cart_usecase.dart';
 import 'package:e_commerce_app/modules/products/domain/usecases/get_product_details_usecase.dart';
+import 'package:e_commerce_app/modules/products/presentation/cubit/edit_product/edit_product_cubit.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../modules/auth/domain/usecases/login_usecase.dart';
 import '../modules/auth/presentation/cubit/signup/signup_cubit.dart';
@@ -41,16 +43,20 @@ Future<void> init() async {
   // Blocs
   sl.registerFactory<LoginCubit>(() => LoginCubit(loginUseCase: sl()));
   sl.registerFactory<SignupCubit>(() => SignupCubit(signupUseCase: sl()));
+  sl.registerFactory<ProfileCubit>(
+      () => ProfileCubit(getProfileUseCase: sl(), appPreferences: sl()));
+
   sl.registerFactory<ProductsCubit>(
       () => ProductsCubit(getAllProductsUseCase: sl()));
+  sl.registerFactory<ProductDetailsCubit>(
+      () => ProductDetailsCubit(getProductDetailsUseCase: sl()));
+  sl.registerFactory<EditProductCubit>(
+      () => EditProductCubit(editProductUseCase: sl()));
+
   sl.registerFactory<CartCubit>(
       () => CartCubit(getCartUseCase: sl(), appPreferences: sl()));
   sl.registerFactory<AddToCartCubit>(
       () => AddToCartCubit(addToCartUseCase: sl(), appPreferences: sl()));
-  sl.registerFactory<ProductDetailsCubit>(
-      () => ProductDetailsCubit(getProductDetailsUseCase: sl()));
-  sl.registerFactory<ProfileCubit>(
-      () => ProfileCubit(getProfileUseCase: sl(), appPreferences: sl()));
 
   // Use Cases
   sl.registerLazySingleton<LoginUseCase>(
@@ -59,14 +65,18 @@ Future<void> init() async {
       () => SignupUseCase(authRepository: sl()));
   sl.registerLazySingleton<GetProfileUseCase>(
       () => GetProfileUseCase(authRepository: sl()));
+
   sl.registerLazySingleton<GetAllProductsUseCase>(
       () => GetAllProductsUseCase(productsRepository: sl()));
+  sl.registerLazySingleton<GetProductDetailsUseCase>(
+      () => GetProductDetailsUseCase(productsRepository: sl()));
+  sl.registerLazySingleton<EditProductUseCase>(
+      () => EditProductUseCase(productsRepository: sl()));
+
   sl.registerLazySingleton<GetCartUseCase>(
       () => GetCartUseCase(cartRepository: sl()));
   sl.registerLazySingleton<AddToCartUseCase>(
       () => AddToCartUseCase(cartRepository: sl()));
-  sl.registerLazySingleton<GetProductDetailsUseCase>(
-      () => GetProductDetailsUseCase(productsRepository: sl()));
 
   // Repositories
   sl.registerLazySingleton<AuthRepository>(() => AuthRepositoryImpl(

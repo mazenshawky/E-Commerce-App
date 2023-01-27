@@ -24,15 +24,13 @@ class AppStrings {
   static const String zipCode = 'Zip Code';
   static const String invalidFirstname = 'Firstname should be at least 3 chars';
   static const String invalidLastname = 'Lastname should be at least 3 chars';
-  static const String invalidEmail = 'Invalid Email';
-  static const String invalidPhone = 'Invalid Phone';
+  static const String invalidEmail = 'Email format is wrong';
+  static const String invalidPhone = 'Phone format is wrong';
   static const String invalidUsername = 'Username should be at least 3 chars';
   static const String invalidCity = 'City should be at least 3 chars';
   static const String invalidStreet = 'Street should be at least 3 chars';
   static const String invalidzipCode = 'Invalid zipCode';
-  static const String emptyUsername = 'Username cannot be empty';
   static const String invalidPassword = 'Password should be at least 6 chars';
-  static const String emptyPassword = 'Password cannot be empty';
   static const String noAccount = "Don't have an Account ? ";
   static const String haveAnAccount = 'Already have an Account ? ';
   static const String loading = 'Loading...';
@@ -44,6 +42,7 @@ class AppStrings {
   static const String settings = 'Settings';
   static const String search = 'Search';
   static const String productDetails = 'Product Details';
+  static const String editProduct = 'Edit Product';
   static const String totalPrice = 'Total Price: ';
   static const String colors = 'Colors';
   static const String addToCart = 'Add to cart';

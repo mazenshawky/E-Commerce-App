@@ -1,13 +1,14 @@
+import 'package:e_commerce_app/modules/products/presentation/common/product_freezed_data_classes.dart';
 import 'package:flutter/material.dart';
 
-import '../../modules/auth/presentation/common/freezed_data_classes.dart';
+import '../../modules/auth/presentation/common/auth_freezed_data_classes.dart';
 import '../error/failure.dart';
 import 'app_colors.dart';
 import 'app_strings.dart';
 import 'app_values.dart';
 
 class Constants {
-  static bool isTextValid(String username) => username.length >= 3;
+  static bool isTextValid(String text) => text.length >= 3;
 
   static bool isPasswordValid(String password) => password.length >= 6;
 
@@ -17,6 +18,10 @@ class Constants {
 
   static bool isPhoneValid(String phone) =>
       RegExp(r'^01(0|1|2|5)\d{1,8}$').hasMatch(phone) && phone.length == 11;
+
+  static bool isPriceValid(double price) => price > 10;
+
+  static bool isImageValid(String image) => image.isNotEmpty;
 
   static bool areAllLoginInputsValid(LoginObject loginObject) =>
       isTextValid(loginObject.username) &&
@@ -32,6 +37,13 @@ class Constants {
       isTextValid(signupObject.city) &&
       isTextValid(signupObject.street) &&
       isTextValid(signupObject.zipCode);
+
+  static bool areAllProductInputsValid(ProductObject productObject) =>
+      isTextValid(productObject.title) &&
+      isPriceValid(productObject.price) &&
+      isTextValid(productObject.description) &&
+      isImageValid(productObject.image) &&
+      isTextValid(productObject.category);
 
   static String mapFailureToMsg(Failure failure) {
     switch (failure.runtimeType) {

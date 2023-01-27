@@ -23,7 +23,7 @@ class ProductModel extends Product {
 
   Map<String, dynamic> editProductToJson() => {
         'title': title,
-        'price': price.toDouble(),
+        'price': price,
         'description': description,
         'category': category,
         'image': image,

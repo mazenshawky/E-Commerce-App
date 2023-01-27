@@ -13,7 +13,9 @@ import '../../modules/auth/presentation/cubit/profile/profile_cubit.dart';
 import '../../modules/auth/presentation/cubit/signup/signup_cubit.dart';
 import '../../modules/cart/presentation/cubit/add_to_cart/add_to_cart_cubit.dart';
 import '../../modules/cart/presentation/cubit/cart/cart_cubit.dart';
+import '../../modules/products/presentation/cubit/edit_product/edit_product_cubit.dart';
 import '../../modules/products/presentation/cubit/products/products_cubit.dart';
+import '../../modules/products/presentation/screens/edit_product/edit_product_screen.dart';
 import '../../modules/splash/presentation/screens/splash/splash_screen.dart';
 
 class Routes {
@@ -22,6 +24,7 @@ class Routes {
   static const String signupRoute = '/signup';
   static const String homeRoute = '/home';
   static const String productDetailsRoute = '/product-details';
+  static const String editProductRoute = '/edit-product';
 }
 
 class AppRoutes {
@@ -77,6 +80,14 @@ class AppRoutes {
               ),
             ],
             child: ProductDetailsScreen(productId: productId),
+          ),
+        );
+
+      case Routes.editProductRoute:
+        return MaterialPageRoute(
+          builder: (context) => BlocProvider(
+            create: (context) => di.sl<EditProductCubit>(),
+            child: const EditProductScreen(),
           ),
         );
 
