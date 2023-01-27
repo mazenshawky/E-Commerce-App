@@ -1,6 +1,7 @@
 // ignore: depend_on_referenced_packages
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
+import 'package:e_commerce_app/app/app_prefs.dart';
 import 'package:e_commerce_app/core/usecases/base_usecase.dart';
 import 'package:e_commerce_app/modules/cart/domain/entities/cart.dart';
 import 'package:e_commerce_app/modules/cart/domain/usecases/get_cart_usecase.dart';
@@ -14,12 +15,15 @@ part 'cart_state.dart';
 
 class CartCubit extends Cubit<CartState> {
   final GetCartUseCase getCartUseCase;
-  CartCubit({required this.getCartUseCase}) : super(CartInitial());
+  final AppPreferences appPreferences;
 
-  Future<void> getCart(int userId) async {
+  CartCubit({required this.getCartUseCase, required this.appPreferences})
+      : super(CartInitial());
+
+  Future<void> getCart() async {
     emit(CartLoading());
     Either<Failure, Cart> response =
-        await getCartUseCase(UserParameters(userId: userId));
+        await getCartUseCase(UserParameters(userId: _getUserId()));
 
     emit(response.fold(
         (failure) => CartError(message: Constants.mapFailureToMsg(failure)),
@@ -43,4 +47,8 @@ class CartCubit extends Cubit<CartState> {
 
     return sum;
   }
+
+  int _getUserId() => appPreferences.getUserId();
+
+  void logout() => appPreferences.logout();
 }

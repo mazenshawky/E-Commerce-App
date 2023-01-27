@@ -20,6 +20,7 @@ import 'package:e_commerce_app/modules/products/domain/repository/products_repos
 import 'package:e_commerce_app/modules/products/domain/usecases/get_all_products_usecase.dart';
 import 'package:e_commerce_app/modules/cart/domain/usecases/get_cart_usecase.dart';
 import 'package:e_commerce_app/modules/products/domain/usecases/get_product_details_usecase.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../modules/auth/presentation/cubit/signup/signup_cubit.dart';
 import '../modules/cart/data/datasources/cart_remote_data_source.dart';
 import '../modules/cart/presentation/cubit/cart/cart_cubit.dart';
@@ -29,6 +30,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 
+import 'app_prefs.dart';
 import 'bloc_observer.dart';
 
 final sl = GetIt.instance;
@@ -40,12 +42,14 @@ Future<void> init() async {
   sl.registerFactory<SignupCubit>(() => SignupCubit(signupUseCase: sl()));
   sl.registerFactory<ProductsCubit>(
       () => ProductsCubit(getAllProductsUseCase: sl()));
-  sl.registerFactory<CartCubit>(() => CartCubit(getCartUseCase: sl()));
+  sl.registerFactory<CartCubit>(
+      () => CartCubit(getCartUseCase: sl(), appPreferences: sl()));
   sl.registerFactory<AddToCartCubit>(
-      () => AddToCartCubit(addToCartUseCase: sl()));
+      () => AddToCartCubit(addToCartUseCase: sl(), appPreferences: sl()));
   sl.registerFactory<ProductDetailsCubit>(
       () => ProductDetailsCubit(getProductDetailsUseCase: sl()));
-  sl.registerFactory<ProfileCubit>(() => ProfileCubit(getProfileUseCase: sl()));
+  sl.registerFactory<ProfileCubit>(
+      () => ProfileCubit(getProfileUseCase: sl(), appPreferences: sl()));
 
   // Use Cases
   sl.registerLazySingleton<SignupUseCase>(
@@ -65,6 +69,7 @@ Future<void> init() async {
   sl.registerLazySingleton<AuthRepository>(() => AuthRepositoryImpl(
         networkInfo: sl(),
         authRemoteDataSource: sl(),
+        sharedPreferences: sl(),
       ));
   sl.registerLazySingleton<ProductsRepository>(() => ProductsRepositoryImpl(
         networkInfo: sl(),
@@ -89,6 +94,10 @@ Future<void> init() async {
   sl.registerLazySingleton<ApiConsumer>(() => DioConsumer(client: sl()));
 
   //! External
+  final sharedPreferences = await SharedPreferences.getInstance();
+  sl.registerLazySingleton(() => sharedPreferences);
+  sl.registerLazySingleton<AppPreferences>(
+      (() => AppPreferencesImpl(sharedPreferences: sl())));
   sl.registerLazySingleton(() => AppInterceptors());
   sl.registerLazySingleton(() => LogInterceptor(
         request: true,

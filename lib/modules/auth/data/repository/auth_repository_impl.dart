@@ -5,17 +5,21 @@ import 'package:e_commerce_app/modules/auth/domain/entities/user.dart';
 import 'package:e_commerce_app/core/error/failure.dart';
 import 'package:dartz/dartz.dart';
 import 'package:e_commerce_app/modules/auth/domain/repository/auth_repository.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../core/error/exceptions.dart';
 import '../../../../core/network/network_info.dart';
+import '../../../../core/utils/app_strings.dart';
 
 class AuthRepositoryImpl implements AuthRepository {
   final NetworkInfo networkInfo;
   final AuthRemoteDataSource authRemoteDataSource;
+  final SharedPreferences sharedPreferences;
 
   AuthRepositoryImpl({
     required this.networkInfo,
     required this.authRemoteDataSource,
+    required this.sharedPreferences,
   });
 
   @override
@@ -23,6 +27,8 @@ class AuthRepositoryImpl implements AuthRepository {
     if (await networkInfo.isConnected) {
       try {
         final response = await authRemoteDataSource.signup(signupRequest);
+        // cacheLoggedUser(userId: response.id!);
+        cacheLoggedUser(userId: 2);
         return Right(response);
       } on ServerException {
         return Left(ServerFailure());
@@ -45,5 +51,11 @@ class AuthRepositoryImpl implements AuthRepository {
     } else {
       return Left(InternetFailure());
     }
+  }
+
+  @override
+  void cacheLoggedUser({required int userId}) {
+    sharedPreferences.setBool(AppStrings.isUserLoggedInKey, true);
+    sharedPreferences.setInt(AppStrings.userIdKey, 2);
   }
 }

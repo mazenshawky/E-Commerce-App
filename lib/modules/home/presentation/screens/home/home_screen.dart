@@ -12,23 +12,20 @@ import '../../../../cart/presentation/cubit/cart/cart_cubit.dart';
 import '../../../../products/presentation/cubit/products/products_cubit.dart';
 
 class HomeScreen extends StatefulWidget {
-  final dynamic userId;
-
-  const HomeScreen({super.key, required this.userId});
+  const HomeScreen({super.key});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  _getAllProducts() async =>
+  void _getAllProducts() async =>
       await BlocProvider.of<ProductsCubit>(context).getAllProducts();
 
-  _getCart() async =>
-      await BlocProvider.of<CartCubit>(context).getCart(widget.userId);
+  void _getCart() async => await BlocProvider.of<CartCubit>(context).getCart();
 
-  _getProfile() async =>
-      await BlocProvider.of<ProfileCubit>(context).getProfile(widget.userId);
+  void _getProfile() async =>
+      await BlocProvider.of<ProfileCubit>(context).getProfile();
 
   @override
   void initState() {

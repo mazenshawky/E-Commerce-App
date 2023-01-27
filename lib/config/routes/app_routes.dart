@@ -60,7 +60,7 @@ class AppRoutes {
                 create: (context) => di.sl<ProfileCubit>(),
               ),
             ],
-            child: const HomeScreen(userId: 2),
+            child: const HomeScreen(),
           ),
         );
 

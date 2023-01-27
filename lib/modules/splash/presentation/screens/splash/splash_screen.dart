@@ -4,6 +4,9 @@ import 'package:e_commerce_app/core/utils/app_values.dart';
 import 'package:flutter/material.dart';
 import 'package:e_commerce_app/config/routes/app_routes.dart';
 import 'package:e_commerce_app/core/utils/app_colors.dart';
+import 'package:e_commerce_app/app/injection_container.dart' as di;
+
+import '../../../../../app/app_prefs.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -14,6 +17,7 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
   late Timer _timer;
+  final AppPreferences _appPreferences = di.sl<AppPreferences>();
 
   @override
   void initState() {
@@ -21,7 +25,14 @@ class _SplashScreenState extends State<SplashScreen> {
     _startDelay();
   }
 
-  _goNext() => Navigator.pushReplacementNamed(context, Routes.loginRoute);
+  _goNext() => _appPreferences.isUserLoggedIn().then(
+        (isUserLoggedIn) => {
+          if (isUserLoggedIn)
+            {Navigator.pushReplacementNamed(context, Routes.homeRoute)}
+          else
+            {Navigator.pushReplacementNamed(context, Routes.loginRoute)}
+        },
+      );
 
   _startDelay() {
     _timer = Timer(const Duration(milliseconds: 2000), () => _goNext());

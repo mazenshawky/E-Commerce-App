@@ -1,5 +1,7 @@
 import 'package:e_commerce_app/core/widgets/my_list_tile.dart';
+import 'package:e_commerce_app/modules/cart/presentation/cubit/cart/cart_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../../config/routes/app_routes.dart';
 import '../../../../../../core/utils/app_strings.dart';
@@ -14,8 +16,10 @@ class SettingsPage extends StatelessWidget {
 
   void _inviteFriends() {}
 
-  void _logout(BuildContext context) =>
-      Navigator.of(context).pushReplacementNamed(Routes.loginRoute);
+  void _logout(BuildContext context) {
+    BlocProvider.of<CartCubit>(context).logout();
+    Navigator.of(context).pushReplacementNamed(Routes.loginRoute);
+  }
 
   @override
   Widget build(BuildContext context) {

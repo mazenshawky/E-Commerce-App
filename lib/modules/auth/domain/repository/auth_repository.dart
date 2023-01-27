@@ -9,4 +9,6 @@ abstract class AuthRepository {
   Future<Either<Failure, User>> signup(UserModel signupRequest);
 
   Future<Either<Failure, User>> getProfile(UserParameters parameters);
+
+  void cacheLoggedUser({required int userId});
 }

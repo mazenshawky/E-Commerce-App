@@ -51,4 +51,6 @@ class AppStrings {
   static const String contactUs = 'Contact Us';
   static const String inviteYourFriends = 'Invite Your Friends';
   static const String logout = 'Logout';
+  static const String isUserLoggedInKey = "IS_USER_LOGGED_IN_KEY";
+  static const String userIdKey = "USER_ID_KEY";
 }
