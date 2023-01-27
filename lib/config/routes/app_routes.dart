@@ -11,6 +11,7 @@ import 'package:e_commerce_app/app/injection_container.dart' as di;
 import '../../modules/auth/presentation/cubit/login/login_cubit.dart';
 import '../../modules/auth/presentation/cubit/profile/profile_cubit.dart';
 import '../../modules/auth/presentation/cubit/signup/signup_cubit.dart';
+import '../../modules/cart/presentation/cubit/add_to_cart/add_to_cart_cubit.dart';
 import '../../modules/cart/presentation/cubit/cart/cart_cubit.dart';
 import '../../modules/products/presentation/cubit/products/products_cubit.dart';
 import '../../modules/splash/presentation/screens/splash/splash_screen.dart';
@@ -66,11 +67,19 @@ class AppRoutes {
       case Routes.productDetailsRoute:
         final productId = routeSettings.arguments;
         return MaterialPageRoute(
-          builder: (context) => BlocProvider(
-            create: (context) => di.sl<ProductDetailsCubit>(),
+          builder: (context) => MultiBlocProvider(
+            providers: [
+              BlocProvider(
+                create: (context) => di.sl<ProductDetailsCubit>(),
+              ),
+              BlocProvider(
+                create: (context) => di.sl<AddToCartCubit>(),
+              ),
+            ],
             child: ProductDetailsScreen(productId: productId),
           ),
         );
+
       default:
         return undefinedRoute();
     }

@@ -8,14 +8,10 @@ class CartModel extends Cart {
     super.cartProducts,
   });
 
-  factory CartModel.cartFromJson(Map<String, dynamic> json) => CartModel(
+  factory CartModel.fromJson(Map<String, dynamic> json) => CartModel(
         id: json['id'],
         cartProducts: List<CartProductModel>.from(json['products']
             .map((cartProduct) => CartProductModel.fromJson(cartProduct))),
-      );
-
-  factory CartModel.addToCartFromJson(Map<String, dynamic> json) => CartModel(
-        id: json['id'],
       );
 
   Map<String, dynamic> toJson() => {

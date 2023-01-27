@@ -8,5 +8,5 @@ import '../entities/cart.dart';
 abstract class CartRepository {
   Future<Either<Failure, Cart>> getCart(UserParameters parameters);
 
-  Future<Either<Failure, Cart>> addToCart(CartModel addToCartRequest);
+  Future<Either<Failure, void>> addToCart(CartModel addToCartRequest);
 }

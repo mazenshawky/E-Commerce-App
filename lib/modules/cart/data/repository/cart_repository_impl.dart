@@ -33,7 +33,16 @@ class CartRepositoryImpl implements CartRepository {
   }
 
   @override
-  Future<Either<Failure, Cart>> addToCart(CartModel addToCartRequest) {
-    throw UnimplementedError();
+  Future<Either<Failure, void>> addToCart(CartModel addToCartRequest) async {
+    if (await networkInfo.isConnected) {
+      try {
+        final response = await cartRemoteDataSource.addToCart(addToCartRequest);
+        return Right(response);
+      } on ServerException {
+        return Left(ServerFailure());
+      }
+    } else {
+      return Left(InternetFailure());
+    }
   }
 }

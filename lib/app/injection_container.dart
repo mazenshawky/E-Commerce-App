@@ -12,6 +12,8 @@ import 'package:e_commerce_app/modules/auth/presentation/cubit/login/login_cubit
 import 'package:e_commerce_app/modules/auth/presentation/cubit/profile/profile_cubit.dart';
 import 'package:e_commerce_app/modules/cart/data/repository/cart_repository_impl.dart';
 import 'package:e_commerce_app/modules/cart/domain/repository/cart_repository.dart';
+import 'package:e_commerce_app/modules/cart/domain/usecases/add_to_cart_usecase.dart';
+import 'package:e_commerce_app/modules/cart/presentation/cubit/add_to_cart/add_to_cart_cubit.dart';
 import 'package:e_commerce_app/modules/products/data/datasource/products_remote_data_source.dart';
 import 'package:e_commerce_app/modules/products/data/repository/products_repository_impl.dart';
 import 'package:e_commerce_app/modules/products/domain/repository/products_repository.dart';
@@ -39,6 +41,8 @@ Future<void> init() async {
   sl.registerFactory<ProductsCubit>(
       () => ProductsCubit(getAllProductsUseCase: sl()));
   sl.registerFactory<CartCubit>(() => CartCubit(getCartUseCase: sl()));
+  sl.registerFactory<AddToCartCubit>(
+      () => AddToCartCubit(addToCartUseCase: sl()));
   sl.registerFactory<ProductDetailsCubit>(
       () => ProductDetailsCubit(getProductDetailsUseCase: sl()));
   sl.registerFactory<ProfileCubit>(() => ProfileCubit(getProfileUseCase: sl()));
@@ -52,6 +56,8 @@ Future<void> init() async {
       () => GetAllProductsUseCase(productsRepository: sl()));
   sl.registerLazySingleton<GetCartUseCase>(
       () => GetCartUseCase(cartRepository: sl()));
+  sl.registerLazySingleton<AddToCartUseCase>(
+      () => AddToCartUseCase(cartRepository: sl()));
   sl.registerLazySingleton<GetProductDetailsUseCase>(
       () => GetProductDetailsUseCase(productsRepository: sl()));
 
