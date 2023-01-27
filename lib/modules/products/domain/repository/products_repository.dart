@@ -8,6 +8,8 @@ import '../../../../core/error/failure.dart';
 abstract class ProductsRepository {
   Future<Either<Failure, List<Product>>> getAllProducts();
 
+  Future<Either<Failure, List<String>>> getAllCategories();
+
   Future<Either<Failure, Product>> getProductDetails(
       ProductDetailsParameters parameters);
 

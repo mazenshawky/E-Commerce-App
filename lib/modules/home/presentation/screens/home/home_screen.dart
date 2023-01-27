@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../cart/presentation/cubit/cart/cart_cubit.dart';
+import '../../../../products/presentation/cubit/categories/categories_cubit.dart';
 import '../../../../products/presentation/cubit/products/products_cubit.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -22,6 +23,9 @@ class _HomeScreenState extends State<HomeScreen> {
   void _getAllProducts() async =>
       await BlocProvider.of<ProductsCubit>(context).getAllProducts();
 
+  void _getAllCategories() async =>
+      await BlocProvider.of<CategoriesCubit>(context).getAllCategories();
+
   void _getCart() async => await BlocProvider.of<CartCubit>(context).getCart();
 
   void _getProfile() async =>
@@ -31,6 +35,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     _getAllProducts();
+    _getAllCategories();
     _getCart();
     _getProfile();
   }

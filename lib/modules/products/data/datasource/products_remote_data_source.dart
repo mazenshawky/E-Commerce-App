@@ -6,6 +6,8 @@ import 'package:e_commerce_app/modules/products/domain/usecases/get_product_deta
 abstract class ProductsRemoteDataSource {
   Future<List<ProductModel>> getAllProducts();
 
+  Future<List<String>> getAllCategories();
+
   Future<ProductModel> getProductDetails(ProductDetailsParameters parameters);
 
   Future<void> editProduct(ProductModel editProductRequest);
@@ -22,6 +24,14 @@ class ProductsRemoteDataSourceImpl implements ProductsRemoteDataSource {
 
     return List<ProductModel>.from(
         (response as List).map((product) => ProductModel.fromJson(product)));
+  }
+
+  @override
+  Future<List<String>> getAllCategories() async {
+    final response = await apiConsumer.get(EndPoints.allCategoriesPath);
+
+    return List<String>.from(
+        (response as List).map((categoryName) => categoryName.toString()));
   }
 
   @override

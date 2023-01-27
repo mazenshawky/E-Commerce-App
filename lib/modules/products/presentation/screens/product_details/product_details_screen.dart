@@ -4,7 +4,6 @@ import 'package:e_commerce_app/core/utils/media_query_values.dart';
 import 'package:e_commerce_app/core/widgets/add_and_edit_widget.dart';
 import 'package:e_commerce_app/core/widgets/my_app_bar.dart';
 import 'package:e_commerce_app/core/widgets/my_button.dart';
-import 'package:e_commerce_app/core/widgets/my_icon.dart';
 import 'package:e_commerce_app/modules/products/presentation/cubit/product_details/product_details_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

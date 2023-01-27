@@ -32,6 +32,21 @@ class ProductsRepositoryImpl implements ProductsRepository {
   }
 
   @override
+  Future<Either<Failure, List<String>>> getAllCategories() async {
+    if (await networkInfo.isConnected) {
+      try {
+        final remoteCategories =
+            await productsRemoteDataSource.getAllCategories();
+        return Right(remoteCategories);
+      } on ServerException {
+        return Left(ServerFailure());
+      }
+    } else {
+      return Left(InternetFailure());
+    }
+  }
+
+  @override
   Future<Either<Failure, Product>> getProductDetails(
       ProductDetailsParameters parameters) async {
     if (await networkInfo.isConnected) {
