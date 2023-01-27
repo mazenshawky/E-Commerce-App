@@ -7,11 +7,14 @@ class EndPoints {
 
   static const String allProductsPath = "$baseUrl/products";
 
-  static const String addToCartPath = "$baseUrl/carts";
+  static const String addToCartPath = "$baseUrl/products/7";
 
   static String userCartPath(int userId) => "$baseUrl/carts/user/$userId";
 
   static String productDetailsPath(int productId) =>
+      "$baseUrl/products/$productId";
+
+  static String editProductPath(int productId) =>
       "$baseUrl/products/$productId";
 
   static String userProfilePath(int userId) => "$baseUrl/users/$userId";

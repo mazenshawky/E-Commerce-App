@@ -3,6 +3,7 @@ import 'package:e_commerce_app/core/error/failure.dart';
 import 'package:dartz/dartz.dart';
 import 'package:e_commerce_app/core/network/network_info.dart';
 import 'package:e_commerce_app/modules/products/data/datasource/products_remote_data_source.dart';
+import 'package:e_commerce_app/modules/products/data/models/product_model.dart';
 import 'package:e_commerce_app/modules/products/domain/entities/product.dart';
 import 'package:e_commerce_app/modules/products/domain/repository/products_repository.dart';
 import 'package:e_commerce_app/modules/products/domain/usecases/get_product_details_usecase.dart';
@@ -38,6 +39,22 @@ class ProductsRepositoryImpl implements ProductsRepository {
         final remoteProductDetails =
             await productsRemoteDataSource.getProductDetails(parameters);
         return Right(remoteProductDetails);
+      } on ServerException {
+        return Left(ServerFailure());
+      }
+    } else {
+      return Left(InternetFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> editProduct(
+      ProductModel editProductRequest) async {
+    if (await networkInfo.isConnected) {
+      try {
+        final response =
+            await productsRemoteDataSource.editProduct(editProductRequest);
+        return Right(response);
       } on ServerException {
         return Left(ServerFailure());
       }

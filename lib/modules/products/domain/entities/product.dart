@@ -1,22 +1,22 @@
 import 'package:equatable/equatable.dart';
 
 class Product extends Equatable {
-  final int id;
+  final int? id;
   final String title;
   final double price;
   final String description;
   final String category;
   final String image;
-  final Rating rating;
+  final Rating? rating;
 
   const Product({
-    required this.id,
+    this.id,
     required this.title,
     required this.price,
     required this.description,
     required this.category,
     required this.image,
-    required this.rating,
+    this.rating,
   });
 
   @override

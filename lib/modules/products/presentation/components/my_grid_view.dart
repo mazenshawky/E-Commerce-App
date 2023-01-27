@@ -32,7 +32,7 @@ class MyGridView extends StatelessWidget {
         itemBuilder: (context, index) {
           return ProductCard(
             product: products[index],
-            onPress: () => _goToProductDetails(context, products[index].id),
+            onPress: () => _goToProductDetails(context, products[index].id!),
           );
         },
       ),

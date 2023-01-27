@@ -2,13 +2,13 @@ import '../../domain/entities/product.dart';
 
 class ProductModel extends Product {
   const ProductModel({
-    required super.id,
+    super.id,
     required super.title,
     required super.price,
     required super.description,
     required super.category,
     required super.image,
-    required super.rating,
+    super.rating,
   });
 
   factory ProductModel.fromJson(Map<String, dynamic> json) => ProductModel(
@@ -20,6 +20,14 @@ class ProductModel extends Product {
         image: json['image'],
         rating: RatingModel.fromJson(json['rating']),
       );
+
+  Map<String, dynamic> editProductToJson() => {
+        'title': title,
+        'price': price.toDouble(),
+        'description': description,
+        'category': category,
+        'image': image,
+      };
 }
 
 class RatingModel extends Rating {
