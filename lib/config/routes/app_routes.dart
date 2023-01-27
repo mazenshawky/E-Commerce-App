@@ -84,10 +84,11 @@ class AppRoutes {
         );
 
       case Routes.editProductRoute:
+        final productId = routeSettings.arguments;
         return MaterialPageRoute(
           builder: (context) => BlocProvider(
             create: (context) => di.sl<EditProductCubit>(),
-            child: const EditProductScreen(),
+            child: EditProductScreen(productId: productId),
           ),
         );
 

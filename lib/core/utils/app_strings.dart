@@ -43,6 +43,7 @@ class AppStrings {
   static const String search = 'Search';
   static const String productDetails = 'Product Details';
   static const String editProduct = 'Edit Product';
+  static const String deleteProduct = 'Delete Product';
   static const String totalPrice = 'Total Price: ';
   static const String colors = 'Colors';
   static const String addToCart = 'Add to cart';

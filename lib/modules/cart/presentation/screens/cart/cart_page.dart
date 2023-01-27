@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../core/utils/app_strings.dart';
 import '../../../../../core/utils/app_values.dart';
+import '../../../../../core/widgets/add_and_edit_widget.dart';
 import '../../../../products/domain/entities/product.dart';
 import '../../components/cart_item.dart';
 import '../../../../../core/widgets/my_button.dart';
@@ -52,17 +53,26 @@ class CartPage extends StatelessWidget {
               const SizedBox(height: AppSize.s10),
               Expanded(
                 child: ListView.separated(
-                    itemBuilder: (context, index) => CartItem(
-                          product: filteredProducts[index],
-                          cartProduct: state.cart.cartProducts![index],
-                        ),
-                    separatorBuilder: (context, index) => const Padding(
-                          padding:
-                              EdgeInsets.symmetric(horizontal: AppPadding.p25),
-                          child: MyDivider(),
-                        ),
-                    itemCount: filteredProducts.length),
+                  itemBuilder: (context, index) => CartItem(
+                    product: filteredProducts[index],
+                    cartProduct: state.cart.cartProducts![index],
+                  ),
+                  separatorBuilder: (context, index) => const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: AppPadding.p25),
+                    child: MyDivider(),
+                  ),
+                  itemCount: filteredProducts.length,
+                ),
               ),
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: AppPadding.p116),
+                child: AddAndEditWidget(
+                  deletePressed: () {},
+                  editPressed: () {},
+                ),
+              ),
+              const SizedBox(height: AppPadding.p24),
               MyButton(onPress: () {}, text: AppStrings.checkout),
               const SizedBox(height: AppSize.s13),
             ],

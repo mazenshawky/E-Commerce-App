@@ -107,9 +107,10 @@ class EditProductCubit extends Cubit<EditProductState>
   }
 
   @override
-  void editProduct() async {
+  void editProduct({required int productId}) async {
     emit(EditProductLoading());
     Either<Failure, void> response = await editProductUseCase(ProductModel(
+      id: productId,
       title: productObject.title,
       price: productObject.price,
       description: productObject.description,
@@ -157,7 +158,7 @@ abstract class EditProductCubitInputs {
 
   void setCategory(String category);
 
-  void editProduct();
+  void editProduct({required int productId});
 
   Sink get inputTitle;
 

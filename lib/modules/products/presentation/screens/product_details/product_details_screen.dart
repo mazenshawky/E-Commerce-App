@@ -1,12 +1,15 @@
 import 'package:e_commerce_app/core/utils/app_colors.dart';
 import 'package:e_commerce_app/core/utils/app_values.dart';
 import 'package:e_commerce_app/core/utils/media_query_values.dart';
+import 'package:e_commerce_app/core/widgets/add_and_edit_widget.dart';
 import 'package:e_commerce_app/core/widgets/my_app_bar.dart';
 import 'package:e_commerce_app/core/widgets/my_button.dart';
+import 'package:e_commerce_app/core/widgets/my_icon.dart';
 import 'package:e_commerce_app/modules/products/presentation/cubit/product_details/product_details_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../../config/routes/app_routes.dart';
 import '../../../../../core/utils/app_assets.dart';
 import '../../../../../core/utils/app_strings.dart';
 import '../../../../../core/utils/constants.dart';
@@ -154,12 +157,26 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                         children: [
                           _buildTitleAndPriceWidget(state.productDetails),
                           _buildDescription(state.productDetails),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: AppPadding.p100,
+                            ),
+                            child: AddAndEditWidget(
+                              deletePressed: () {},
+                              editPressed: () =>
+                                  Navigator.of(context).pushNamed(
+                                Routes.editProductRoute,
+                                arguments: widget.productId,
+                              ),
+                            ),
+                          ),
                           const SizedBox(height: AppPadding.p24),
                           MyButton(
-                              onPress: () => _addToCart(
-                                    productId: widget.productId,
-                                  ),
-                              text: AppStrings.addToCart),
+                            onPress: () => _addToCart(
+                              productId: widget.productId,
+                            ),
+                            text: AppStrings.addToCart,
+                          ),
                           _buildAddToCartBloc(),
                         ],
                       ),

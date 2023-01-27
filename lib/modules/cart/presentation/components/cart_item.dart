@@ -1,4 +1,5 @@
 import 'package:e_commerce_app/core/utils/app_colors.dart';
+import 'package:e_commerce_app/core/widgets/my_icon.dart';
 import 'package:e_commerce_app/modules/cart/domain/entities/cart.dart';
 import 'package:flutter/material.dart';
 
@@ -66,22 +67,7 @@ class CartItem extends StatelessWidget {
                       children: [
                         Row(
                           children: [
-                            Container(
-                              height: AppSize.s45,
-                              width: AppSize.s45,
-                              decoration: BoxDecoration(
-                                border: Border.all(color: AppColors.lightWhite),
-                                borderRadius:
-                                    BorderRadius.circular(AppSize.s17),
-                              ),
-                              child: InkWell(
-                                  onTap: () {},
-                                  child: const Center(
-                                      child: Icon(
-                                    Icons.remove,
-                                    color: AppColors.primary,
-                                  ))),
-                            ),
+                            const MyIcon(icon: Icons.remove),
                             Padding(
                               padding: const EdgeInsets.symmetric(
                                   horizontal: AppSize.s17),
@@ -91,22 +77,7 @@ class CartItem extends StatelessWidget {
                                 style: Theme.of(context).textTheme.bodyLarge,
                               )),
                             ),
-                            Container(
-                              height: AppSize.s45,
-                              width: AppSize.s45,
-                              decoration: BoxDecoration(
-                                border: Border.all(color: AppColors.lightWhite),
-                                borderRadius:
-                                    BorderRadius.circular(AppSize.s17),
-                              ),
-                              child: InkWell(
-                                  onTap: () {},
-                                  child: const Center(
-                                      child: Icon(
-                                    Icons.add,
-                                    color: AppColors.primary,
-                                  ))),
-                            ),
+                            const MyIcon(icon: Icons.add),
                           ],
                         ),
                         Text(
