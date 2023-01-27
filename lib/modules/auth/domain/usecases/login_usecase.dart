@@ -6,13 +6,13 @@ import '../../../../core/error/failure.dart';
 import '../../../../core/usecases/base_usecase.dart';
 import '../repository/auth_repository.dart';
 
-class SignupUseCase implements BaseUseCase<User, UserModel> {
+class LoginUseCase implements BaseUseCase<User, UserModel> {
   final AuthRepository authRepository;
 
-  SignupUseCase({required this.authRepository});
+  LoginUseCase({required this.authRepository});
 
   @override
-  Future<Either<Failure, User>> call(UserModel signupRequest) async {
-    return await authRepository.signup(signupRequest);
+  Future<Either<Failure, User>> call(UserModel loginRequest) async {
+    return await authRepository.login(loginRequest);
   }
 }

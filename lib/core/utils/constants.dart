@@ -37,6 +37,8 @@ class Constants {
     switch (failure.runtimeType) {
       case ServerFailure:
         return AppStrings.serverFailure;
+      case UnauthorizedFailure:
+        return AppStrings.unauthorizedFailure;
       case CacheFailure:
         return AppStrings.cacheFailure;
       case InternetFailure:

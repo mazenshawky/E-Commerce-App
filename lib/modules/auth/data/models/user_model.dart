@@ -3,6 +3,7 @@ import '../../domain/entities/user.dart';
 class UserModel extends User {
   const UserModel({
     super.id,
+    super.token,
     super.email,
     super.username,
     super.password,
@@ -24,7 +25,11 @@ class UserModel extends User {
         id: json['id'],
       );
 
-  Map<String, dynamic> toJson() => {
+  factory UserModel.loginFromJson(Map<String, dynamic> json) => UserModel(
+        token: json['token'],
+      );
+
+  Map<String, dynamic> signupToJson() => {
         'email': email,
         'username': username,
         'password': password,
@@ -38,6 +43,11 @@ class UserModel extends User {
           'zipcode': address!.zipCode,
         },
         'phone': phone,
+      };
+
+  Map<String, dynamic> loginToJson() => {
+        'username': username,
+        'password': password,
       };
 }
 

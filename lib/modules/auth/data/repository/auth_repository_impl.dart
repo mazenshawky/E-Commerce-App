@@ -23,6 +23,24 @@ class AuthRepositoryImpl implements AuthRepository {
   });
 
   @override
+  Future<Either<Failure, User>> login(UserModel loginRequest) async {
+    if (await networkInfo.isConnected) {
+      try {
+        final response = await authRemoteDataSource.login(loginRequest);
+        // cacheLoggedUser(userId: response.id!);
+        cacheLoggedUser(userId: 2);
+        return Right(response);
+      } on UnauthorizedException {
+        return Left(UnauthorizedFailure());
+      } on ServerException {
+        return Left(ServerFailure());
+      }
+    } else {
+      return Left(InternetFailure());
+    }
+  }
+
+  @override
   Future<Either<Failure, User>> signup(UserModel signupRequest) async {
     if (await networkInfo.isConnected) {
       try {

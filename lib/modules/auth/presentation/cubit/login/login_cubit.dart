@@ -2,16 +2,23 @@ import 'dart:async';
 
 // ignore: depend_on_referenced_packages
 import 'package:bloc/bloc.dart';
+import 'package:dartz/dartz.dart';
+import 'package:e_commerce_app/modules/auth/domain/usecases/login_usecase.dart';
 import 'package:e_commerce_app/modules/auth/presentation/common/freezed_data_classes.dart';
 import 'package:equatable/equatable.dart';
 
+import '../../../../../core/error/failure.dart';
 import '../../../../../core/utils/constants.dart';
+import '../../../data/models/user_model.dart';
+import '../../../domain/entities/user.dart';
 
 part 'login_state.dart';
 
 class LoginCubit extends Cubit<LoginState>
     with LoginCubitInputs, LoginCubitOutputs {
-  LoginCubit() : super(LoginInitial());
+  final LoginUseCase loginUseCase;
+
+  LoginCubit({required this.loginUseCase}) : super(LoginInitial());
 
   final StreamController _usernameStreamController =
       StreamController<String>.broadcast();
@@ -61,7 +68,18 @@ class LoginCubit extends Cubit<LoginState>
       : _passwordVisibilityStreamController.add(true);
 
   @override
-  void login() {}
+  void login() async {
+    emit(LoginLoading());
+    Either<Failure, User> response = await loginUseCase(UserModel(
+      username: loginObject.username,
+      password: loginObject.password,
+    ));
+
+    emit(response.fold(
+      (failure) => LoginError(message: Constants.mapFailureToMsg(failure)),
+      (user) => LoginSuccess(user: user),
+    ));
+  }
 
   // outputs
   @override

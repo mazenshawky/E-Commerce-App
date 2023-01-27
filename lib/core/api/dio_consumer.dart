@@ -53,6 +53,9 @@ class DioConsumer implements ApiConsumer {
       final response = await client.post(path,
           queryParameters: queryParameters,
           data: formDataIsEnabled ? FormData.fromMap(body!) : body);
+      if (response.statusCode == StatusCode.unauthorized) {
+        throw const UnauthorizedException();
+      }
       return _handleResponseAsJson(response);
     } on DioError catch (error) {
       _handleDioError(error);
@@ -78,6 +81,7 @@ class DioConsumer implements ApiConsumer {
   }
 
   dynamic _handleDioError(DioError error) {
+    print('hello world');
     switch (error.type) {
       case DioErrorType.connectTimeout:
       case DioErrorType.sendTimeout:
@@ -89,6 +93,7 @@ class DioConsumer implements ApiConsumer {
             throw const BadRequestException();
           case StatusCode.unauthorized:
           case StatusCode.forbidden:
+            print('trying something');
             throw const UnauthorizedException();
           case StatusCode.notFound:
             throw const NotFoundException();

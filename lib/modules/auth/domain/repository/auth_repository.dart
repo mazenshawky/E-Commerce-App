@@ -6,6 +6,8 @@ import 'package:e_commerce_app/modules/auth/domain/entities/user.dart';
 import '../../../../core/error/failure.dart';
 
 abstract class AuthRepository {
+  Future<Either<Failure, User>> login(UserModel loginRequest);
+
   Future<Either<Failure, User>> signup(UserModel signupRequest);
 
   Future<Either<Failure, User>> getProfile(UserParameters parameters);

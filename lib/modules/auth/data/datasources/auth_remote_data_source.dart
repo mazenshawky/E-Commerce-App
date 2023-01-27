@@ -6,6 +6,8 @@ import '../../../../core/usecases/base_usecase.dart';
 import '../../domain/entities/user.dart';
 
 abstract class AuthRemoteDataSource {
+  Future<User> login(UserModel loginRequest);
+
   Future<User> signup(UserModel signupRequest);
 
   Future<User> getProfile(UserParameters parameters);
@@ -17,10 +19,20 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   AuthRemoteDataSourceImpl({required this.apiConsumer});
 
   @override
+  Future<User> login(UserModel loginRequest) async {
+    final response = await apiConsumer.post(
+      EndPoints.loginPath,
+      body: loginRequest.loginToJson(),
+    );
+
+    return UserModel.loginFromJson(response);
+  }
+
+  @override
   Future<User> signup(UserModel signupRequest) async {
     final response = await apiConsumer.post(
       EndPoints.signupPath,
-      body: signupRequest.toJson(),
+      body: signupRequest.signupToJson(),
     );
 
     return UserModel.signupFromJson(response);

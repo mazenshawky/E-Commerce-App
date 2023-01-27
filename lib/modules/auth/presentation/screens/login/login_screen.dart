@@ -5,8 +5,14 @@ import 'package:e_commerce_app/modules/auth/presentation/cubit/login/login_cubit
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../../config/routes/app_routes.dart';
+import '../../../../../core/utils/app_assets.dart';
 import '../../../../../core/utils/app_values.dart';
+import '../../../../../core/utils/constants.dart';
 import '../../../../../core/widgets/my_header.dart';
+import '../../../../../core/widgets/state_animation_image.dart';
+import '../../../../../core/widgets/state_error_button.dart';
+import '../../../../../core/widgets/state_text.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -33,6 +39,40 @@ class _LoginScreenState extends State<LoginScreen> {
 
     _passwordController.addListener(() => BlocProvider.of<LoginCubit>(context)
         .setPassword(_passwordController.text));
+  }
+
+  Widget _buildLoginButtonPressedBloc() {
+    return BlocListener<LoginCubit, LoginState>(
+      listenWhen: ((previous, current) => previous != current),
+      listener: (context, state) {
+        if (state is LoginLoading) {
+          Constants.showPopupWidget(
+            context,
+            children: [
+              const StateAnimationImage(animationImage: JsonAssets.loading),
+              const StateText(text: AppStrings.loading),
+              const SizedBox(height: 20),
+            ],
+          );
+        }
+        if (state is LoginSuccess) {
+          Navigator.pop(context);
+          Navigator.of(context).pushReplacementNamed(Routes.homeRoute);
+        }
+        if (state is LoginError) {
+          Navigator.pop(context);
+          Constants.showPopupWidget(
+            context,
+            children: [
+              const StateAnimationImage(animationImage: JsonAssets.error),
+              StateText(text: state.message),
+              const StateButton(label: AppStrings.tryAgain),
+            ],
+          );
+        }
+      },
+      child: Container(),
+    );
   }
 
   @override
@@ -70,6 +110,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       passwordController: _passwordController,
                       loginFormKey: _loginFormKey,
                     ),
+                    _buildLoginButtonPressedBloc(),
                   ],
                 ),
               ),

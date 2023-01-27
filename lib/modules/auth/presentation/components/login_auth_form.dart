@@ -65,8 +65,7 @@ class LoginAuthForm extends StatelessWidget {
             builder: (context, snapshot) {
               return MyButton(
                 onPress: (snapshot.data ?? false)
-                    ? () => Navigator.of(context)
-                        .pushReplacementNamed(Routes.homeRoute)
+                    ? () => BlocProvider.of<LoginCubit>(context).login()
                     : null,
                 text: AppStrings.login,
               );

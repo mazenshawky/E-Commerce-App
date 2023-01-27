@@ -1,6 +1,8 @@
 class EndPoints {
   static const String baseUrl = "https://fakestoreapi.com";
 
+  static const String loginPath = "$baseUrl/auth/login";
+
   static const String signupPath = "$baseUrl/users";
 
   static const String allProductsPath = "$baseUrl/products";

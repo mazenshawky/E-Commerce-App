@@ -21,6 +21,7 @@ import 'package:e_commerce_app/modules/products/domain/usecases/get_all_products
 import 'package:e_commerce_app/modules/cart/domain/usecases/get_cart_usecase.dart';
 import 'package:e_commerce_app/modules/products/domain/usecases/get_product_details_usecase.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../modules/auth/domain/usecases/login_usecase.dart';
 import '../modules/auth/presentation/cubit/signup/signup_cubit.dart';
 import '../modules/cart/data/datasources/cart_remote_data_source.dart';
 import '../modules/cart/presentation/cubit/cart/cart_cubit.dart';
@@ -38,7 +39,7 @@ final sl = GetIt.instance;
 Future<void> init() async {
   //! Modules
   // Blocs
-  sl.registerFactory<LoginCubit>(() => LoginCubit());
+  sl.registerFactory<LoginCubit>(() => LoginCubit(loginUseCase: sl()));
   sl.registerFactory<SignupCubit>(() => SignupCubit(signupUseCase: sl()));
   sl.registerFactory<ProductsCubit>(
       () => ProductsCubit(getAllProductsUseCase: sl()));
@@ -52,6 +53,8 @@ Future<void> init() async {
       () => ProfileCubit(getProfileUseCase: sl(), appPreferences: sl()));
 
   // Use Cases
+  sl.registerLazySingleton<LoginUseCase>(
+      () => LoginUseCase(authRepository: sl()));
   sl.registerLazySingleton<SignupUseCase>(
       () => SignupUseCase(authRepository: sl()));
   sl.registerLazySingleton<GetProfileUseCase>(
