@@ -36,6 +36,7 @@ class AppStrings {
   static const String haveAnAccount = 'Already have an Account ? ';
   static const String loading = 'Loading...';
   static const String tryAgain = 'Try Again';
+  static const String ok = 'Ok';
   static const String products = 'Products';
   static const String cart = 'Cart';
   static const String profile = 'Profile';
@@ -45,6 +46,7 @@ class AppStrings {
   static const String totalPrice = 'Total Price: ';
   static const String colors = 'Colors';
   static const String addToCart = 'Add to cart';
+  static const String addedSuccessfully = 'Added Successfully';
   static const String checkout = 'Checkout';
   static const String userInformation = 'User Information';
   static const String changeLanguage = 'Change Language';

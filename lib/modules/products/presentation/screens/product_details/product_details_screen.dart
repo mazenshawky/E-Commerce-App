@@ -6,7 +6,13 @@ import 'package:e_commerce_app/modules/products/presentation/cubit/product_detai
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../../core/utils/app_assets.dart';
 import '../../../../../core/utils/app_strings.dart';
+import '../../../../../core/utils/constants.dart';
+import '../../../../../core/widgets/state_animation_image.dart';
+import '../../../../../core/widgets/state_error_button.dart';
+import '../../../../../core/widgets/state_text.dart';
+import '../../../../cart/presentation/cubit/add_to_cart/add_to_cart_cubit.dart';
 import '../../../domain/entities/product.dart';
 
 class ProductDetailsScreen extends StatefulWidget {
@@ -66,6 +72,50 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
     );
   }
 
+  void _addToCart({required int productId}) =>
+      BlocProvider.of<AddToCartCubit>(context).addToCart(productId: productId);
+
+  Widget _buildAddToCartBloc() {
+    return BlocListener<AddToCartCubit, AddToCartState>(
+      listenWhen: ((previous, current) => previous != current),
+      listener: (context, state) {
+        if (state is AddToCartLoading) {
+          Constants.showPopupWidget(
+            context,
+            children: [
+              const StateAnimationImage(animationImage: JsonAssets.loading),
+              const StateText(text: AppStrings.loading),
+              const SizedBox(height: 20),
+            ],
+          );
+        }
+        if (state is AddToCartSuccess) {
+          Navigator.pop(context);
+          Constants.showPopupWidget(
+            context,
+            children: [
+              const StateAnimationImage(animationImage: JsonAssets.success),
+              const StateText(text: AppStrings.addedSuccessfully),
+              const StateButton(label: AppStrings.ok),
+            ],
+          );
+        }
+        if (state is AddToCartError) {
+          Navigator.pop(context);
+          Constants.showPopupWidget(
+            context,
+            children: [
+              const StateAnimationImage(animationImage: JsonAssets.error),
+              StateText(text: state.message),
+              const StateButton(label: AppStrings.tryAgain),
+            ],
+          );
+        }
+      },
+      child: Container(),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -112,7 +162,12 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                           _buildTitleAndPriceWidget(state.productDetails),
                           _buildDescription(state.productDetails),
                           const SizedBox(height: AppPadding.p24),
-                          MyButton(onPress: () {}, text: AppStrings.addToCart),
+                          MyButton(
+                              onPress: () => _addToCart(
+                                    productId: widget.productId,
+                                  ),
+                              text: AppStrings.addToCart),
+                          _buildAddToCartBloc(),
                         ],
                       ),
                     ),

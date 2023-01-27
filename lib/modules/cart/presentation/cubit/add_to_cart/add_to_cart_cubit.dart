@@ -19,7 +19,7 @@ class AddToCartCubit extends Cubit<AddToCartState> {
   AddToCartCubit({required this.addToCartUseCase, required this.appPreferences})
       : super(AddToCartInitial());
 
-  Future<void> addToCart(int productId) async {
+  Future<void> addToCart({required int productId}) async {
     emit(AddToCartLoading());
     Either<Failure, void> response = await addToCartUseCase(CartModel(
       userId: _getUserId(),
