@@ -1,10 +1,10 @@
 import 'package:e_commerce_app/core/usecases/base_usecase.dart';
 import 'package:e_commerce_app/modules/auth/data/datasources/auth_remote_data_source.dart';
+import 'package:e_commerce_app/modules/auth/data/models/user_model.dart';
 import 'package:e_commerce_app/modules/auth/domain/entities/user.dart';
 import 'package:e_commerce_app/core/error/failure.dart';
 import 'package:dartz/dartz.dart';
 import 'package:e_commerce_app/modules/auth/domain/repository/auth_repository.dart';
-import 'package:e_commerce_app/modules/auth/domain/usecases/signup_usecase.dart';
 
 import '../../../../core/error/exceptions.dart';
 import '../../../../core/network/network_info.dart';
@@ -19,7 +19,7 @@ class AuthRepositoryImpl implements AuthRepository {
   });
 
   @override
-  Future<Either<Failure, User>> signup(SignupRequest signupRequest) async {
+  Future<Either<Failure, User>> signup(UserModel signupRequest) async {
     if (await networkInfo.isConnected) {
       try {
         final response = await authRemoteDataSource.signup(signupRequest);

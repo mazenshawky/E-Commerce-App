@@ -3,6 +3,7 @@ import 'dart:async';
 // ignore: depend_on_referenced_packages
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
+import 'package:e_commerce_app/modules/auth/data/models/user_model.dart';
 import 'package:e_commerce_app/modules/auth/domain/entities/user.dart';
 import 'package:e_commerce_app/modules/auth/domain/usecases/signup_usecase.dart';
 import 'package:equatable/equatable.dart';
@@ -170,7 +171,7 @@ class SignupCubit extends Cubit<SignupState>
   @override
   void signup() async {
     emit(SignupLoading());
-    Either<Failure, User> response = await signupUseCase(SignupRequest(
+    Either<Failure, User> response = await signupUseCase(UserModel(
       email: signupObject.email,
       username: signupObject.username,
       password: signupObject.password,
