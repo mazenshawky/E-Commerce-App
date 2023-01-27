@@ -2,15 +2,27 @@ import 'package:e_commerce_app/modules/cart/domain/entities/cart.dart';
 
 class CartModel extends Cart {
   const CartModel({
-    required super.id,
-    required super.cartProducts,
+    super.id,
+    super.userId,
+    super.date,
+    super.cartProducts,
   });
 
-  factory CartModel.fromJson(Map<String, dynamic> json) => CartModel(
+  factory CartModel.cartFromJson(Map<String, dynamic> json) => CartModel(
         id: json['id'],
-        cartProducts: List<CartProduct>.from(json['products']
+        cartProducts: List<CartProductModel>.from(json['products']
             .map((cartProduct) => CartProductModel.fromJson(cartProduct))),
       );
+
+  factory CartModel.addToCartFromJson(Map<String, dynamic> json) => CartModel(
+        id: json['id'],
+      );
+
+  Map<String, dynamic> toJson() => {
+        'userId': userId,
+        'date': date.toString(),
+        'products': cartProducts,
+      };
 }
 
 class CartProductModel extends CartProduct {

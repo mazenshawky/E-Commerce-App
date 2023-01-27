@@ -28,7 +28,7 @@ class CartCubit extends Cubit<CartState> {
 
   List<Product> filterProductsAsUserCart(List<Product> allProudcts, Cart cart) {
     final filteredProducts = allProudcts
-        .where((product) => cart.cartProducts
+        .where((product) => cart.cartProducts!
             .any((cartProduct) => cartProduct.productId == product.id))
         .toList();
     return filteredProducts;

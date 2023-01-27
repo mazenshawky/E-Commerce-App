@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:e_commerce_app/core/usecases/base_usecase.dart';
 import 'package:e_commerce_app/modules/cart/data/datasources/cart_remote_data_source.dart';
+import 'package:e_commerce_app/modules/cart/data/models/cart_model.dart';
 
 import '../../../../core/error/exceptions.dart';
 import '../../../../core/error/failure.dart';
@@ -29,5 +30,10 @@ class CartRepositoryImpl implements CartRepository {
     } else {
       return Left(InternetFailure());
     }
+  }
+
+  @override
+  Future<Either<Failure, Cart>> addToCart(CartModel addToCartRequest) {
+    throw UnimplementedError();
   }
 }

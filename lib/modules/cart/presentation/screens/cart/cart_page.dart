@@ -54,7 +54,7 @@ class CartPage extends StatelessWidget {
                 child: ListView.separated(
                     itemBuilder: (context, index) => CartItem(
                           product: filteredProducts[index],
-                          cartProduct: state.cart.cartProducts[index],
+                          cartProduct: state.cart.cartProducts![index],
                         ),
                     separatorBuilder: (context, index) => const Padding(
                           padding:
