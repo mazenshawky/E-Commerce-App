@@ -6,13 +6,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../config/routes/app_routes.dart';
-import '../../../../../core/utils/app_assets.dart';
 import '../../../../../core/utils/app_values.dart';
-import '../../../../../core/utils/constants.dart';
 import '../../../../../core/widgets/my_header.dart';
-import '../../../../../core/widgets/state_animation_image.dart';
-import '../../../../../core/widgets/state_error_button.dart';
-import '../../../../../core/widgets/state_text.dart';
+import '../../../../../core/widgets/state_popups.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -46,14 +42,7 @@ class _LoginScreenState extends State<LoginScreen> {
       listenWhen: ((previous, current) => previous != current),
       listener: (context, state) {
         if (state is LoginLoading) {
-          Constants.showPopupWidget(
-            context,
-            children: [
-              const StateAnimationImage(animationImage: JsonAssets.loading),
-              const StateText(text: AppStrings.loading),
-              const SizedBox(height: 20),
-            ],
-          );
+          statePopUpLoading(context);
         }
         if (state is LoginSuccess) {
           Navigator.pop(context);
@@ -61,14 +50,7 @@ class _LoginScreenState extends State<LoginScreen> {
         }
         if (state is LoginError) {
           Navigator.pop(context);
-          Constants.showPopupWidget(
-            context,
-            children: [
-              const StateAnimationImage(animationImage: JsonAssets.error),
-              StateText(text: state.message),
-              const StateButton(label: AppStrings.tryAgain),
-            ],
-          );
+          statePopUpError(context, text: state.message);
         }
       },
       child: Container(),

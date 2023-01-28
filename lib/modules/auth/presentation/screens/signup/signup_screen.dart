@@ -1,15 +1,10 @@
 import 'package:e_commerce_app/config/routes/app_routes.dart';
-import 'package:e_commerce_app/core/utils/app_strings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../../core/utils/app_assets.dart';
 import '../../../../../core/utils/app_values.dart';
-import '../../../../../core/utils/constants.dart';
 import '../../../../../core/widgets/my_header.dart';
-import '../../../../../core/widgets/state_animation_image.dart';
-import '../../../../../core/widgets/state_error_button.dart';
-import '../../../../../core/widgets/state_text.dart';
+import '../../../../../core/widgets/state_popups.dart';
 import '../../components/signup_auth_form.dart';
 import '../../cubit/signup/signup_cubit.dart';
 
@@ -73,14 +68,7 @@ class _SignupScreenState extends State<SignupScreen> {
       listenWhen: ((previous, current) => previous != current),
       listener: (context, state) {
         if (state is SignupLoading) {
-          Constants.showPopupWidget(
-            context,
-            children: [
-              const StateAnimationImage(animationImage: JsonAssets.loading),
-              const StateText(text: AppStrings.loading),
-              const SizedBox(height: 20),
-            ],
-          );
+          statePopUpLoading(context);
         }
         if (state is SignupSuccess) {
           Navigator.pop(context);
@@ -88,14 +76,7 @@ class _SignupScreenState extends State<SignupScreen> {
         }
         if (state is SignupError) {
           Navigator.pop(context);
-          Constants.showPopupWidget(
-            context,
-            children: [
-              const StateAnimationImage(animationImage: JsonAssets.error),
-              StateText(text: state.message),
-              const StateButton(label: AppStrings.tryAgain),
-            ],
-          );
+          statePopUpError(context, text: state.message);
         }
       },
       child: Container(),

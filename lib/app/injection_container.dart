@@ -28,8 +28,10 @@ import '../modules/auth/domain/usecases/login_usecase.dart';
 import '../modules/auth/presentation/cubit/signup/signup_cubit.dart';
 import '../modules/cart/data/datasources/cart_remote_data_source.dart';
 import '../modules/cart/presentation/cubit/cart/cart_cubit.dart';
+import '../modules/products/domain/usecases/delete_product_usecase.dart';
 import '../modules/products/domain/usecases/get_all_categories_usecase.dart';
 import '../modules/products/presentation/cubit/categories/categories_cubit.dart';
+import '../modules/products/presentation/cubit/delete_product/delete_product_cubit.dart';
 import '../modules/products/presentation/cubit/product_details/product_details_cubit.dart';
 import '../modules/products/presentation/cubit/products/products_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -57,6 +59,8 @@ Future<void> init() async {
       () => ProductDetailsCubit(getProductDetailsUseCase: sl()));
   sl.registerFactory<EditProductCubit>(
       () => EditProductCubit(editProductUseCase: sl()));
+  sl.registerFactory<DeleteProductCubit>(
+      () => DeleteProductCubit(deleteProductUseCase: sl()));
 
   sl.registerFactory<CartCubit>(
       () => CartCubit(getCartUseCase: sl(), appPreferences: sl()));
@@ -79,6 +83,8 @@ Future<void> init() async {
       () => GetProductDetailsUseCase(productsRepository: sl()));
   sl.registerLazySingleton<EditProductUseCase>(
       () => EditProductUseCase(productsRepository: sl()));
+  sl.registerLazySingleton<DeleteProductUseCase>(
+      () => DeleteProductUseCase(productsRepository: sl()));
 
   sl.registerLazySingleton<GetCartUseCase>(
       () => GetCartUseCase(cartRepository: sl()));

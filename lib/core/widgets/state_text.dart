@@ -11,7 +11,12 @@ class StateText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: AppPadding.p15),
+      padding: const EdgeInsets.only(
+        bottom: AppPadding.p15,
+        left: AppPadding.p8,
+        right: AppPadding.p8,
+        top: AppPadding.p8,
+      ),
       child: Text(
         text,
         style: const TextStyle(

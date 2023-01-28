@@ -14,6 +14,7 @@ import '../../modules/auth/presentation/cubit/signup/signup_cubit.dart';
 import '../../modules/cart/presentation/cubit/add_to_cart/add_to_cart_cubit.dart';
 import '../../modules/cart/presentation/cubit/cart/cart_cubit.dart';
 import '../../modules/products/presentation/cubit/categories/categories_cubit.dart';
+import '../../modules/products/presentation/cubit/delete_product/delete_product_cubit.dart';
 import '../../modules/products/presentation/cubit/edit_product/edit_product_cubit.dart';
 import '../../modules/products/presentation/cubit/products/products_cubit.dart';
 import '../../modules/products/presentation/screens/edit_product/edit_product_screen.dart';
@@ -81,6 +82,9 @@ class AppRoutes {
               ),
               BlocProvider(
                 create: (context) => di.sl<AddToCartCubit>(),
+              ),
+              BlocProvider(
+                create: (context) => di.sl<DeleteProductCubit>(),
               ),
             ],
             child: ProductDetailsScreen(productId: productId),

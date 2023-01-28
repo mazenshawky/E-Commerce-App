@@ -4,4 +4,6 @@ abstract class ApiConsumer {
       {Map<String, dynamic>? body, Map<String, dynamic>? queryParameters});
   Future<dynamic> put(String path,
       {Map<String, dynamic>? body, Map<String, dynamic>? queryParameters});
+  Future<dynamic> delete(String path,
+      {Map<String, dynamic>? body, Map<String, dynamic>? queryParameters});
 }

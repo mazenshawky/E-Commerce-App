@@ -19,5 +19,8 @@ class EndPoints {
   static String editProductPath(int productId) =>
       "$baseUrl/products/$productId";
 
+  static String deleteProductPath(int productId) =>
+      "$baseUrl/products/$productId";
+
   static String userProfilePath(int userId) => "$baseUrl/users/$userId";
 }

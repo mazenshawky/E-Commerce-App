@@ -4,6 +4,7 @@ import 'package:e_commerce_app/modules/products/domain/entities/product.dart';
 import 'package:e_commerce_app/modules/products/domain/usecases/get_product_details_usecase.dart';
 
 import '../../../../core/error/failure.dart';
+import '../usecases/delete_product_usecase.dart';
 
 abstract class ProductsRepository {
   Future<Either<Failure, List<Product>>> getAllProducts();
@@ -14,4 +15,7 @@ abstract class ProductsRepository {
       ProductDetailsParameters parameters);
 
   Future<Either<Failure, void>> editProduct(ProductModel editProductRequest);
+
+  Future<Either<Failure, void>> deleteProduct(
+      DeleteProductParameters parameters);
 }

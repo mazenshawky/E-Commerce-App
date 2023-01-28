@@ -59,6 +59,11 @@ class AppStrings {
   static const String addToCart = 'Add to cart';
   static const String addedSuccessfully = 'Added Successfully';
   static const String editedSuccessfully = 'Edited Successfully';
+  static const String deletedSuccessfully = 'Deleted Successfully';
+  static const String areYouSureForProduct =
+      'Are you sure you want to delete this product?';
+  static const String yes = 'Yes';
+  static const String no = 'No';
   static const String checkout = 'Checkout';
   static const String userInformation = 'User Information';
   static const String changeLanguage = 'Change Language';

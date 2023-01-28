@@ -9,14 +9,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../config/routes/app_routes.dart';
-import '../../../../../core/utils/app_assets.dart';
 import '../../../../../core/utils/app_strings.dart';
-import '../../../../../core/utils/constants.dart';
-import '../../../../../core/widgets/state_animation_image.dart';
-import '../../../../../core/widgets/state_error_button.dart';
-import '../../../../../core/widgets/state_text.dart';
+import '../../../../../core/widgets/state_popups.dart';
 import '../../../../cart/presentation/cubit/add_to_cart/add_to_cart_cubit.dart';
 import '../../../domain/entities/product.dart';
+import '../../cubit/delete_product/delete_product_cubit.dart';
 
 class ProductDetailsScreen extends StatefulWidget {
   final dynamic productId;
@@ -78,41 +75,46 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
   void _addToCart({required int productId}) =>
       BlocProvider.of<AddToCartCubit>(context).addToCart(productId: productId);
 
-  Widget _buildAddToCartBloc() {
+  Widget _buildAddToCartPressedBloc() {
     return BlocListener<AddToCartCubit, AddToCartState>(
       listenWhen: ((previous, current) => previous != current),
       listener: (context, state) {
         if (state is AddToCartLoading) {
-          Constants.showPopupWidget(
-            context,
-            children: [
-              const StateAnimationImage(animationImage: JsonAssets.loading),
-              const StateText(text: AppStrings.loading),
-              const SizedBox(height: AppSize.s20),
-            ],
-          );
+          statePopUpLoading(context);
         }
         if (state is AddToCartSuccess) {
           Navigator.pop(context);
-          Constants.showPopupWidget(
-            context,
-            children: [
-              const StateAnimationImage(animationImage: JsonAssets.success),
-              const StateText(text: AppStrings.addedSuccessfully),
-              const StateButton(label: AppStrings.ok),
-            ],
-          );
+          statePopUpSuccess(context, text: AppStrings.addedSuccessfully);
         }
         if (state is AddToCartError) {
           Navigator.pop(context);
-          Constants.showPopupWidget(
-            context,
-            children: [
-              const StateAnimationImage(animationImage: JsonAssets.error),
-              StateText(text: state.message),
-              const StateButton(label: AppStrings.tryAgain),
-            ],
-          );
+          statePopUpError(context, text: state.message);
+        }
+      },
+      child: Container(),
+    );
+  }
+
+  void _deleteProduct({required int productId}) {
+    Navigator.of(context).pop();
+    BlocProvider.of<DeleteProductCubit>(context)
+        .deleteProduct(productId: productId);
+  }
+
+  Widget _buildDeleteProductPressedBloc() {
+    return BlocListener<DeleteProductCubit, DeleteProductState>(
+      listenWhen: ((previous, current) => previous != current),
+      listener: (context, state) {
+        if (state is DeleteProductLoading) {
+          statePopUpLoading(context);
+        }
+        if (state is DeleteProductSuccess) {
+          Navigator.pop(context);
+          statePopUpSuccess(context, text: AppStrings.deletedSuccessfully);
+        }
+        if (state is DeleteProductError) {
+          Navigator.pop(context);
+          statePopUpError(context, text: state.message);
         }
       },
       child: Container(),
@@ -161,7 +163,12 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                               horizontal: AppPadding.p100,
                             ),
                             child: AddAndEditWidget(
-                              deletePressed: () {},
+                              deletePressed: () => statePopUpChoice(
+                                context,
+                                text: AppStrings.areYouSureForProduct,
+                                onPress: () =>
+                                    _deleteProduct(productId: widget.productId),
+                              ),
                               editPressed: () =>
                                   Navigator.of(context).pushNamed(
                                 Routes.editProductRoute,
@@ -176,7 +183,8 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                             ),
                             text: AppStrings.addToCart,
                           ),
-                          _buildAddToCartBloc(),
+                          _buildAddToCartPressedBloc(),
+                          _buildDeleteProductPressedBloc(),
                         ],
                       ),
                     ),

@@ -6,6 +6,7 @@ import 'package:e_commerce_app/modules/products/data/datasource/products_remote_
 import 'package:e_commerce_app/modules/products/data/models/product_model.dart';
 import 'package:e_commerce_app/modules/products/domain/entities/product.dart';
 import 'package:e_commerce_app/modules/products/domain/repository/products_repository.dart';
+import 'package:e_commerce_app/modules/products/domain/usecases/delete_product_usecase.dart';
 import 'package:e_commerce_app/modules/products/domain/usecases/get_product_details_usecase.dart';
 
 class ProductsRepositoryImpl implements ProductsRepository {
@@ -69,6 +70,22 @@ class ProductsRepositoryImpl implements ProductsRepository {
       try {
         final response =
             await productsRemoteDataSource.editProduct(editProductRequest);
+        return Right(response);
+      } on ServerException {
+        return Left(ServerFailure());
+      }
+    } else {
+      return Left(InternetFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> deleteProduct(
+      DeleteProductParameters parameters) async {
+    if (await networkInfo.isConnected) {
+      try {
+        final response =
+            await productsRemoteDataSource.deleteProduct(parameters);
         return Right(response);
       } on ServerException {
         return Left(ServerFailure());

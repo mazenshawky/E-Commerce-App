@@ -1,6 +1,7 @@
 import 'package:e_commerce_app/core/api/end_points.dart';
 import 'package:e_commerce_app/core/api/api_consumer.dart';
 import 'package:e_commerce_app/modules/products/data/models/product_model.dart';
+import 'package:e_commerce_app/modules/products/domain/usecases/delete_product_usecase.dart';
 import 'package:e_commerce_app/modules/products/domain/usecases/get_product_details_usecase.dart';
 
 abstract class ProductsRemoteDataSource {
@@ -11,6 +12,8 @@ abstract class ProductsRemoteDataSource {
   Future<ProductModel> getProductDetails(ProductDetailsParameters parameters);
 
   Future<void> editProduct(ProductModel editProductRequest);
+
+  Future<void> deleteProduct(DeleteProductParameters parameters);
 }
 
 class ProductsRemoteDataSourceImpl implements ProductsRemoteDataSource {
@@ -49,4 +52,9 @@ class ProductsRemoteDataSourceImpl implements ProductsRemoteDataSource {
         EndPoints.editProductPath(editProductRequest.id!),
         body: editProductRequest.editProductToJson(),
       );
+
+  @override
+  Future<void> deleteProduct(DeleteProductParameters parameters) async =>
+      await apiConsumer
+          .delete(EndPoints.deleteProductPath(parameters.productId));
 }

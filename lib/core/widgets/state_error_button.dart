@@ -4,8 +4,13 @@ import '../utils/app_values.dart';
 
 class StateButton extends StatelessWidget {
   final String label;
+  final VoidCallback? onPress;
 
-  const StateButton({super.key, required this.label});
+  const StateButton({
+    super.key,
+    required this.label,
+    this.onPress,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +20,9 @@ class StateButton extends StatelessWidget {
       child: SizedBox(
         width: AppSize.s450,
         child: ElevatedButton(
-            onPressed: () => Navigator.of(context).pop(), child: Text(label)),
+          onPressed: onPress ?? () => Navigator.of(context).pop(),
+          child: Text(label),
+        ),
       ),
     );
   }
