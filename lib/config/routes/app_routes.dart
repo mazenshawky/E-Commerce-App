@@ -14,6 +14,7 @@ import '../../modules/auth/presentation/cubit/profile/profile_cubit.dart';
 import '../../modules/auth/presentation/cubit/signup/signup_cubit.dart';
 import '../../modules/cart/presentation/cubit/add_to_cart/add_to_cart_cubit.dart';
 import '../../modules/cart/presentation/cubit/cart/cart_cubit.dart';
+import '../../modules/cart/presentation/cubit/delete_cart/delete_cart_cubit.dart';
 import '../../modules/products/presentation/cubit/add_product/add_product_cubit.dart';
 import '../../modules/products/presentation/cubit/categories/categories_cubit.dart';
 import '../../modules/products/presentation/cubit/delete_product/delete_product_cubit.dart';
@@ -66,6 +67,9 @@ class AppRoutes {
               ),
               BlocProvider(
                 create: (context) => di.sl<CartCubit>(),
+              ),
+              BlocProvider(
+                create: (context) => di.sl<DeleteCartCubit>(),
               ),
               BlocProvider(
                 create: (context) => di.sl<ProfileCubit>(),

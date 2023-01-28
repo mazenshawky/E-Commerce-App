@@ -24,5 +24,7 @@ class EndPoints {
   static String deleteProductPath(int productId) =>
       "$baseUrl/products/$productId";
 
+  static String deleteCartPath(int cartId) => "$baseUrl/carts/$cartId";
+
   static String userProfilePath(int userId) => "$baseUrl/users/$userId";
 }

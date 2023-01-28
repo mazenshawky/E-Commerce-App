@@ -27,7 +27,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../modules/auth/domain/usecases/login_usecase.dart';
 import '../modules/auth/presentation/cubit/signup/signup_cubit.dart';
 import '../modules/cart/data/datasources/cart_remote_data_source.dart';
+import '../modules/cart/domain/usecases/delete_cart_usecase.dart';
 import '../modules/cart/presentation/cubit/cart/cart_cubit.dart';
+import '../modules/cart/presentation/cubit/delete_cart/delete_cart_cubit.dart';
 import '../modules/products/domain/usecases/add_product_usecase.dart';
 import '../modules/products/domain/usecases/delete_product_usecase.dart';
 import '../modules/products/domain/usecases/get_all_categories_usecase.dart';
@@ -70,6 +72,8 @@ Future<void> init() async {
       () => CartCubit(getCartUseCase: sl(), appPreferences: sl()));
   sl.registerFactory<AddToCartCubit>(
       () => AddToCartCubit(addToCartUseCase: sl(), appPreferences: sl()));
+  sl.registerFactory<DeleteCartCubit>(
+      () => DeleteCartCubit(deleteCartUseCase: sl()));
 
   // Use Cases
   sl.registerLazySingleton<LoginUseCase>(
@@ -96,6 +100,8 @@ Future<void> init() async {
       () => GetCartUseCase(cartRepository: sl()));
   sl.registerLazySingleton<AddToCartUseCase>(
       () => AddToCartUseCase(cartRepository: sl()));
+  sl.registerLazySingleton<DeleteCartUseCase>(
+      () => DeleteCartUseCase(cartRepository: sl()));
 
   // Repositories
   sl.registerLazySingleton<AuthRepository>(() => AuthRepositoryImpl(

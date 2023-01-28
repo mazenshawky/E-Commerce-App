@@ -63,6 +63,8 @@ class AppStrings {
   static const String deletedSuccessfully = 'Deleted Successfully';
   static const String areYouSureForProduct =
       'Are you sure you want to delete this product?';
+  static const String areYouSureForCart =
+      'Are you sure you want to delete this cart?';
   static const String yes = 'Yes';
   static const String no = 'No';
   static const String checkout = 'Checkout';

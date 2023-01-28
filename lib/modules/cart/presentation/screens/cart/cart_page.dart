@@ -6,10 +6,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../../core/utils/app_strings.dart';
 import '../../../../../core/utils/app_values.dart';
 import '../../../../../core/widgets/add_and_edit_widget.dart';
+import '../../../../../core/widgets/state_popups.dart';
 import '../../../../products/domain/entities/product.dart';
 import '../../components/cart_item.dart';
 import '../../../../../core/widgets/my_button.dart';
 import '../../cubit/cart/cart_cubit.dart';
+import '../../cubit/delete_cart/delete_cart_cubit.dart';
 
 class CartPage extends StatelessWidget {
   const CartPage({super.key});
@@ -26,6 +28,31 @@ class CartPage extends StatelessWidget {
           style: Theme.of(context).textTheme.bodyLarge,
         ),
       ],
+    );
+  }
+
+  void _deleteCart(BuildContext context, {required int cartId}) {
+    Navigator.of(context).pop();
+    BlocProvider.of<DeleteCartCubit>(context).deleteCart(cartId: cartId);
+  }
+
+  Widget _buildDeleteCartPressedBloc() {
+    return BlocListener<DeleteCartCubit, DeleteCartState>(
+      listenWhen: ((previous, current) => previous != current),
+      listener: (context, state) {
+        if (state is DeleteCartLoading) {
+          statePopUpLoading(context);
+        }
+        if (state is DeleteCartSuccess) {
+          Navigator.pop(context);
+          statePopUpSuccess(context, text: AppStrings.deletedSuccessfully);
+        }
+        if (state is DeleteCartError) {
+          Navigator.pop(context);
+          statePopUpError(context, text: state.message);
+        }
+      },
+      child: Container(),
     );
   }
 
@@ -68,13 +95,18 @@ class CartPage extends StatelessWidget {
                 padding:
                     const EdgeInsets.symmetric(horizontal: AppPadding.p116),
                 child: AddAndEditWidget(
-                  deletePressed: () {},
+                  deletePressed: () => statePopUpChoice(
+                    context,
+                    text: AppStrings.areYouSureForCart,
+                    onPress: () => _deleteCart(context, cartId: state.cart.id!),
+                  ),
                   editPressed: () {},
                 ),
               ),
               const SizedBox(height: AppPadding.p24),
               MyButton(onPress: () {}, text: AppStrings.checkout),
               const SizedBox(height: AppSize.s13),
+              _buildDeleteCartPressedBloc(),
             ],
           );
         } else {
