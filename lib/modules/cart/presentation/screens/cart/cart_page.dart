@@ -5,8 +5,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../core/utils/app_strings.dart';
 import '../../../../../core/utils/app_values.dart';
+import '../../../../../core/utils/constants.dart';
 import '../../../../../core/widgets/add_and_edit_widget.dart';
-import '../../../../../core/widgets/state_popups.dart';
 import '../../../../products/domain/entities/product.dart';
 import '../../components/cart_item.dart';
 import '../../../../../core/widgets/my_button.dart';
@@ -41,15 +41,16 @@ class CartPage extends StatelessWidget {
       listenWhen: ((previous, current) => previous != current),
       listener: (context, state) {
         if (state is DeleteCartLoading) {
-          statePopUpLoading(context);
+          Constants.statePopUpLoading(context);
         }
         if (state is DeleteCartSuccess) {
           Navigator.pop(context);
-          statePopUpSuccess(context, text: AppStrings.deletedSuccessfully);
+          Constants.statePopUpSuccess(context,
+              text: AppStrings.deletedSuccessfully);
         }
         if (state is DeleteCartError) {
           Navigator.pop(context);
-          statePopUpError(context, text: state.message);
+          Constants.statePopUpError(context, text: state.message);
         }
       },
       child: Container(),
@@ -95,7 +96,7 @@ class CartPage extends StatelessWidget {
                 padding:
                     const EdgeInsets.symmetric(horizontal: AppPadding.p116),
                 child: AddAndEditWidget(
-                  deletePressed: () => statePopUpChoice(
+                  deletePressed: () => Constants.statePopUpChoice(
                     context,
                     text: AppStrings.areYouSureForCart,
                     onPress: () => _deleteCart(context, cartId: state.cart.id!),

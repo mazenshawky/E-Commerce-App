@@ -3,6 +3,11 @@ import 'package:flutter/material.dart';
 
 import '../../modules/auth/presentation/common/auth_freezed_data_classes.dart';
 import '../error/failure.dart';
+import '../widgets/state_animation_image.dart';
+import '../widgets/state_choice_buttons.dart';
+import '../widgets/state_error_button.dart';
+import '../widgets/state_text.dart';
+import 'app_assets.dart';
 import 'app_colors.dart';
 import 'app_strings.dart';
 import 'app_values.dart';
@@ -92,6 +97,46 @@ class Constants {
       builder: (context) => dialog,
     );
   }
+
+  static void statePopUpLoading(BuildContext context) => showPopupWidget(
+        context,
+        children: [
+          const StateAnimationImage(animationImage: JsonAssets.loading),
+          const StateText(text: AppStrings.loading),
+          const SizedBox(height: AppSize.s20),
+        ],
+      );
+
+  static void statePopUpSuccess(BuildContext context, {required String text}) =>
+      showPopupWidget(
+        context,
+        children: [
+          const StateAnimationImage(animationImage: JsonAssets.success),
+          StateText(text: text),
+          const StateButton(label: AppStrings.ok),
+        ],
+      );
+
+  static void statePopUpError(BuildContext context, {required String text}) =>
+      showPopupWidget(
+        context,
+        children: [
+          const StateAnimationImage(animationImage: JsonAssets.error),
+          StateText(text: text),
+          const StateButton(label: AppStrings.tryAgain),
+        ],
+      );
+
+  static void statePopUpChoice(BuildContext context,
+          {required String text, required VoidCallback onPress}) =>
+      showPopupWidget(
+        context,
+        children: [
+          const StateAnimationImage(animationImage: JsonAssets.thinking),
+          StateText(text: text),
+          StateChoiceButtons(onPress: onPress),
+        ],
+      );
 
   static void showPicker(
     BuildContext context, {

@@ -4,9 +4,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../core/utils/app_strings.dart';
 import '../../../../../core/utils/app_values.dart';
+import '../../../../../core/utils/constants.dart';
 import '../../../../../core/widgets/my_app_bar.dart';
 import '../../../../../core/widgets/my_header.dart';
-import '../../../../../core/widgets/state_popups.dart';
 import '../../cubit/categories/categories_cubit.dart';
 import '../../cubit/edit_product/edit_product_cubit.dart';
 
@@ -55,16 +55,17 @@ class _EditProductScreenState extends State<EditProductScreen> {
       listenWhen: ((previous, current) => previous != current),
       listener: (context, state) {
         if (state is EditProductLoading) {
-          statePopUpLoading(context);
+          Constants.statePopUpLoading(context);
         }
         if (state is EditProductSuccess) {
           Navigator.pop(context);
           Navigator.pop(context);
-          statePopUpSuccess(context, text: AppStrings.editedSuccessfully);
+          Constants.statePopUpSuccess(context,
+              text: AppStrings.editedSuccessfully);
         }
         if (state is EditProductError) {
           Navigator.pop(context);
-          statePopUpError(context, text: state.message);
+          Constants.statePopUpError(context, text: state.message);
         }
       },
       child: Container(),

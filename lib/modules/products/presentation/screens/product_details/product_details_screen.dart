@@ -10,7 +10,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../config/routes/app_routes.dart';
 import '../../../../../core/utils/app_strings.dart';
-import '../../../../../core/widgets/state_popups.dart';
+import '../../../../../core/utils/constants.dart';
 import '../../../../cart/presentation/cubit/add_to_cart/add_to_cart_cubit.dart';
 import '../../../domain/entities/product.dart';
 import '../../cubit/delete_product/delete_product_cubit.dart';
@@ -80,15 +80,16 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
       listenWhen: ((previous, current) => previous != current),
       listener: (context, state) {
         if (state is AddToCartLoading) {
-          statePopUpLoading(context);
+          Constants.statePopUpLoading(context);
         }
         if (state is AddToCartSuccess) {
           Navigator.pop(context);
-          statePopUpSuccess(context, text: AppStrings.addedSuccessfully);
+          Constants.statePopUpSuccess(context,
+              text: AppStrings.addedSuccessfully);
         }
         if (state is AddToCartError) {
           Navigator.pop(context);
-          statePopUpError(context, text: state.message);
+          Constants.statePopUpError(context, text: state.message);
         }
       },
       child: Container(),
@@ -106,15 +107,16 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
       listenWhen: ((previous, current) => previous != current),
       listener: (context, state) {
         if (state is DeleteProductLoading) {
-          statePopUpLoading(context);
+          Constants.statePopUpLoading(context);
         }
         if (state is DeleteProductSuccess) {
           Navigator.pop(context);
-          statePopUpSuccess(context, text: AppStrings.deletedSuccessfully);
+          Constants.statePopUpSuccess(context,
+              text: AppStrings.deletedSuccessfully);
         }
         if (state is DeleteProductError) {
           Navigator.pop(context);
-          statePopUpError(context, text: state.message);
+          Constants.statePopUpError(context, text: state.message);
         }
       },
       child: Container(),
@@ -163,7 +165,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                               horizontal: AppPadding.p100,
                             ),
                             child: AddAndEditWidget(
-                              deletePressed: () => statePopUpChoice(
+                              deletePressed: () => Constants.statePopUpChoice(
                                 context,
                                 text: AppStrings.areYouSureForProduct,
                                 onPress: () =>

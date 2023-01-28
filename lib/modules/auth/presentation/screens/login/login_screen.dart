@@ -7,8 +7,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../config/routes/app_routes.dart';
 import '../../../../../core/utils/app_values.dart';
+import '../../../../../core/utils/constants.dart';
 import '../../../../../core/widgets/my_header.dart';
-import '../../../../../core/widgets/state_popups.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -42,7 +42,7 @@ class _LoginScreenState extends State<LoginScreen> {
       listenWhen: ((previous, current) => previous != current),
       listener: (context, state) {
         if (state is LoginLoading) {
-          statePopUpLoading(context);
+          Constants.statePopUpLoading(context);
         }
         if (state is LoginSuccess) {
           Navigator.pop(context);
@@ -50,7 +50,7 @@ class _LoginScreenState extends State<LoginScreen> {
         }
         if (state is LoginError) {
           Navigator.pop(context);
-          statePopUpError(context, text: state.message);
+          Constants.statePopUpError(context, text: state.message);
         }
       },
       child: Container(),
