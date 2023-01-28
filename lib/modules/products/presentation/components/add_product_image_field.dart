@@ -7,36 +7,32 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:e_commerce_app/app/injection_container.dart' as di;
 
-import '../../modules/products/presentation/cubit/edit_product/edit_product_cubit.dart';
-import '../utils/app_colors.dart';
-import '../utils/app_strings.dart';
-import '../utils/app_values.dart';
-import '../utils/constants.dart';
+import '../../../../core/utils/app_colors.dart';
+import '../../../../core/utils/app_strings.dart';
+import '../../../../core/utils/app_values.dart';
+import '../../../../core/utils/constants.dart';
+import '../cubit/add_product/add_product_cubit.dart';
 
-class MyImageField extends StatelessWidget {
+class AddProductImageField extends StatelessWidget {
   final ImagePicker _imagePicker = di.sl<ImagePicker>();
-  final String preImage;
 
-  MyImageField({super.key, required this.preImage});
+  AddProductImageField({super.key});
 
   _imageFromGallery(BuildContext context) async {
     var image = await _imagePicker.pickImage(source: ImageSource.gallery);
-    BlocProvider.of<EditProductCubit>(context)
-        .setImage(File(image?.path ?? ""));
+    BlocProvider.of<AddProductCubit>(context).setImage(File(image?.path ?? ""));
   }
 
   _imageFromCamera(BuildContext context) async {
     var image = await _imagePicker.pickImage(source: ImageSource.camera);
-    BlocProvider.of<EditProductCubit>(context)
-        .setImage(File(image?.path ?? ""));
+    BlocProvider.of<AddProductCubit>(context).setImage(File(image?.path ?? ""));
   }
 
   Widget _imagePickedByUser(BuildContext context, File? image) {
     if (image != null && image.path.isNotEmpty) {
       return Image.file(image);
     } else {
-      BlocProvider.of<EditProductCubit>(context).setImage(File(''));
-      return Image.network(preImage);
+      return Container();
     }
   }
 
@@ -49,7 +45,7 @@ class MyImageField extends StatelessWidget {
           const Flexible(child: Text(AppStrings.image)),
           Flexible(
               child: StreamBuilder<File>(
-            stream: BlocProvider.of<EditProductCubit>(context).outImage,
+            stream: BlocProvider.of<AddProductCubit>(context).outImage,
             builder: (context, snapshot) {
               return _imagePickedByUser(context, snapshot.data);
             },

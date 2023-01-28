@@ -7,7 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/utils/app_strings.dart';
 import '../../../../core/utils/app_values.dart';
 import '../../../../core/widgets/my_button.dart';
-import '../../../../core/widgets/my_image_field.dart';
+import 'edit_product_image_field.dart';
 import '../../../../core/widgets/my_stream_text_field.dart';
 import '../cubit/categories/categories_cubit.dart';
 import '../cubit/edit_product/edit_product_cubit.dart';
@@ -126,7 +126,7 @@ class _EditProductFormState extends State<EditProductForm> {
             errorText: AppStrings.invalidDesciption,
           ),
           const SizedBox(height: AppSize.s16),
-          MyImageField(preImage: widget.product.image),
+          EditProductImageField(preImage: widget.product.image),
           const SizedBox(height: AppSize.s16),
           _buildCategoriesBloc(),
           const SizedBox(height: AppSize.s16),

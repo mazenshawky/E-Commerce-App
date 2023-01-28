@@ -14,6 +14,8 @@ abstract class ProductsRepository {
   Future<Either<Failure, Product>> getProductDetails(
       ProductDetailsParameters parameters);
 
+  Future<Either<Failure, void>> addProduct(ProductModel addProductRequest);
+
   Future<Either<Failure, void>> editProduct(ProductModel editProductRequest);
 
   Future<Either<Failure, void>> deleteProduct(

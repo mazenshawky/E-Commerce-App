@@ -57,6 +57,7 @@ class AppStrings {
   static const String photoCamera = 'Photo from camera';
   static const String photoGallery = 'Photo from galley';
   static const String addToCart = 'Add to cart';
+  static const String addAProduct = 'Add a product';
   static const String addedSuccessfully = 'Added Successfully';
   static const String editedSuccessfully = 'Edited Successfully';
   static const String deletedSuccessfully = 'Deleted Successfully';

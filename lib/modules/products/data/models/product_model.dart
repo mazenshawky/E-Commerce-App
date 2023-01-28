@@ -28,6 +28,14 @@ class ProductModel extends Product {
         'category': category,
         'image': image,
       };
+
+  Map<String, dynamic> addProductToJson() => {
+        'title': title,
+        'price': price,
+        'description': description,
+        'category': category,
+        'image': image,
+      };
 }
 
 class RatingModel extends Rating {

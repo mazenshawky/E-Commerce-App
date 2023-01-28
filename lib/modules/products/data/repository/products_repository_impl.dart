@@ -64,6 +64,22 @@ class ProductsRepositoryImpl implements ProductsRepository {
   }
 
   @override
+  Future<Either<Failure, void>> addProduct(
+      ProductModel addProductRequest) async {
+    if (await networkInfo.isConnected) {
+      try {
+        final response =
+            await productsRemoteDataSource.addProduct(addProductRequest);
+        return Right(response);
+      } on ServerException {
+        return Left(ServerFailure());
+      }
+    } else {
+      return Left(InternetFailure());
+    }
+  }
+
+  @override
   Future<Either<Failure, void>> editProduct(
       ProductModel editProductRequest) async {
     if (await networkInfo.isConnected) {

@@ -2,6 +2,7 @@ import 'package:e_commerce_app/modules/auth/presentation/screens/login/login_scr
 import 'package:e_commerce_app/modules/auth/presentation/screens/signup/signup_screen.dart';
 import 'package:e_commerce_app/modules/products/presentation/cubit/product_details/product_details_cubit.dart';
 import 'package:e_commerce_app/modules/home/presentation/screens/home/home_screen.dart';
+import 'package:e_commerce_app/modules/products/presentation/screens/add_product/add_product_screen.dart';
 import 'package:e_commerce_app/modules/products/presentation/screens/product_details/product_details_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -13,6 +14,7 @@ import '../../modules/auth/presentation/cubit/profile/profile_cubit.dart';
 import '../../modules/auth/presentation/cubit/signup/signup_cubit.dart';
 import '../../modules/cart/presentation/cubit/add_to_cart/add_to_cart_cubit.dart';
 import '../../modules/cart/presentation/cubit/cart/cart_cubit.dart';
+import '../../modules/products/presentation/cubit/add_product/add_product_cubit.dart';
 import '../../modules/products/presentation/cubit/categories/categories_cubit.dart';
 import '../../modules/products/presentation/cubit/delete_product/delete_product_cubit.dart';
 import '../../modules/products/presentation/cubit/edit_product/edit_product_cubit.dart';
@@ -27,6 +29,7 @@ class Routes {
   static const String homeRoute = '/home';
   static const String productDetailsRoute = '/product-details';
   static const String editProductRoute = '/edit-product';
+  static const String addProductRoute = '/add-product';
 }
 
 class AppRoutes {
@@ -104,6 +107,22 @@ class AppRoutes {
               ),
             ],
             child: EditProductScreen(product: product),
+          ),
+        );
+
+      case Routes.addProductRoute:
+        final categories = routeSettings.arguments as List<String>;
+        return MaterialPageRoute(
+          builder: (context) => MultiBlocProvider(
+            providers: [
+              BlocProvider(
+                create: (context) => di.sl<AddProductCubit>(),
+              ),
+              BlocProvider(
+                create: (context) => di.sl<CategoriesCubit>(),
+              ),
+            ],
+            child: AddProductScreen(categories: categories),
           ),
         );
 

@@ -11,6 +11,8 @@ abstract class ProductsRemoteDataSource {
 
   Future<ProductModel> getProductDetails(ProductDetailsParameters parameters);
 
+  Future<void> addProduct(ProductModel addProductRequest);
+
   Future<void> editProduct(ProductModel editProductRequest);
 
   Future<void> deleteProduct(DeleteProductParameters parameters);
@@ -45,6 +47,13 @@ class ProductsRemoteDataSourceImpl implements ProductsRemoteDataSource {
 
     return ProductModel.fromJson(response);
   }
+
+  @override
+  Future<void> addProduct(ProductModel addProductRequest) async =>
+      await apiConsumer.post(
+        EndPoints.addProductPath,
+        body: addProductRequest.addProductToJson(),
+      );
 
   @override
   Future<void> editProduct(ProductModel editProductRequest) async =>

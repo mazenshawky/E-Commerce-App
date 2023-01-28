@@ -16,6 +16,8 @@ class CategoriesCubit extends Cubit<CategoriesState> {
   CategoriesCubit({required this.getAllCategoriesUseCase})
       : super(CategoriesInitial());
 
+  List<String> allCategories = [];
+
   Future<void> getAllCategories() async {
     emit(CategoriesLoading());
     Either<Failure, List<String>> response =
@@ -24,6 +26,9 @@ class CategoriesCubit extends Cubit<CategoriesState> {
     emit(response.fold(
         (failure) =>
             CategoriesError(message: Constants.mapFailureToMsg(failure)),
-        (categories) => CategoriesLoaded(categories: categories)));
+        (categories) {
+      allCategories = categories;
+      return CategoriesLoaded(categories: categories);
+    }));
   }
 }

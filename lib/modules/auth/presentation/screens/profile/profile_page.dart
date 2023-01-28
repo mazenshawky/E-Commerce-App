@@ -3,12 +3,16 @@ import 'package:e_commerce_app/core/utils/app_fonts.dart';
 import 'package:e_commerce_app/core/utils/app_strings.dart';
 import 'package:e_commerce_app/core/utils/app_values.dart';
 import 'package:e_commerce_app/core/utils/constants.dart';
+import 'package:e_commerce_app/core/widgets/my_button.dart';
 import 'package:e_commerce_app/core/widgets/my_header.dart';
 import 'package:e_commerce_app/modules/auth/presentation/components/profile_card.dart';
 import 'package:e_commerce_app/modules/auth/presentation/components/profile_image.dart';
 import 'package:e_commerce_app/modules/auth/presentation/cubit/profile/profile_cubit.dart';
+import 'package:e_commerce_app/modules/products/presentation/cubit/categories/categories_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../../../../config/routes/app_routes.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -27,11 +31,10 @@ class _ProfilePageState extends State<ProfilePage> {
             child: CircularProgressIndicator(),
           );
         } else if (state is ProfileError) {
-          return Center(
-            child: Text(state.message),
-          );
+          return Center(child: Text(state.message));
         } else if (state is ProfileLoaded) {
           return SingleChildScrollView(
+            reverse: true,
             child: Stack(
               children: [
                 const SizedBox(
@@ -92,7 +95,15 @@ class _ProfilePageState extends State<ProfilePage> {
                             ProfileCard(user: state.user),
                           ],
                         ),
-                      )
+                      ),
+                      MyButton(
+                        text: AppStrings.addAProduct,
+                        onPress: () => Navigator.of(context).pushNamed(
+                          Routes.addProductRoute,
+                          arguments: BlocProvider.of<CategoriesCubit>(context)
+                              .allCategories,
+                        ),
+                      ),
                     ],
                   ),
                 )

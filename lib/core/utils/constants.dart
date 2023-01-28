@@ -107,13 +107,19 @@ class Constants {
               ListTile(
                 trailing: const Icon(Icons.arrow_forward),
                 leading: const Icon(Icons.camera),
-                title: const Text(AppStrings.photoCamera),
+                title: const Text(
+                  AppStrings.photoCamera,
+                  style: TextStyle(color: AppColors.primary),
+                ),
                 onTap: cameraPressed,
               ),
               ListTile(
                 trailing: const Icon(Icons.arrow_forward),
                 leading: const Icon(Icons.camera_alt_outlined),
-                title: const Text(AppStrings.photoGallery),
+                title: const Text(
+                  AppStrings.photoGallery,
+                  style: TextStyle(color: AppColors.primary),
+                ),
                 onTap: galleryPressed,
               ),
             ],
