@@ -25,7 +25,7 @@ class EditProductCubit extends Cubit<EditProductState>
       StreamController<String>.broadcast();
 
   final StreamController _priceStreamController =
-      StreamController<String>.broadcast();
+      StreamController<double>.broadcast();
 
   final StreamController _descriptionStreamController =
       StreamController<String>.broadcast();
@@ -135,10 +135,10 @@ class EditProductCubit extends Cubit<EditProductState>
 
   @override
   Stream<bool> get outIsDescriptionValid => _descriptionStreamController.stream
-      .map((description) => Constants.isTextValid(description));
+      .map((description) => Constants.isDescriptionValid(description));
 
   @override
-  Stream<File> get outProfilePicture =>
+  Stream<File> get outImage =>
       _imageStreamController.stream.map((file) => file);
 
   @override
@@ -178,7 +178,7 @@ abstract class EditProductCubitOutputs {
 
   Stream<bool> get outIsDescriptionValid;
 
-  Stream<File> get outProfilePicture;
+  Stream<File> get outImage;
 
   Stream<bool> get outAreAllInputsValid;
 }

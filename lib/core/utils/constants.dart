@@ -12,6 +12,8 @@ class Constants {
 
   static bool isPasswordValid(String password) => password.length >= 6;
 
+  static bool isDescriptionValid(String desciption) => desciption.length >= 10;
+
   static bool isEmailValid(String email) => RegExp(
           r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
       .hasMatch(email);
@@ -19,7 +21,7 @@ class Constants {
   static bool isPhoneValid(String phone) =>
       RegExp(r'^01(0|1|2|5)\d{1,8}$').hasMatch(phone) && phone.length == 11;
 
-  static bool isPriceValid(double price) => price > 10;
+  static bool isPriceValid(double price) => price >= 10.0;
 
   static bool isImageValid(String image) => image.isNotEmpty;
 
@@ -88,6 +90,36 @@ class Constants {
       context: context,
       barrierDismissible: false,
       builder: (context) => dialog,
+    );
+  }
+
+  static void showPicker(
+    BuildContext context, {
+    required VoidCallback galleryPressed,
+    required VoidCallback cameraPressed,
+  }) {
+    showModalBottomSheet(
+      context: context,
+      builder: (BuildContext context) {
+        return SafeArea(
+          child: Wrap(
+            children: [
+              ListTile(
+                trailing: const Icon(Icons.arrow_forward),
+                leading: const Icon(Icons.camera),
+                title: const Text(AppStrings.photoCamera),
+                onTap: cameraPressed,
+              ),
+              ListTile(
+                trailing: const Icon(Icons.arrow_forward),
+                leading: const Icon(Icons.camera_alt_outlined),
+                title: const Text(AppStrings.photoGallery),
+                onTap: galleryPressed,
+              ),
+            ],
+          ),
+        );
+      },
     );
   }
 

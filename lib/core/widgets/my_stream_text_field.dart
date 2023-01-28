@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
-import '../../../../core/utils/app_colors.dart';
-import '../../../../core/utils/app_values.dart';
+import '../utils/app_colors.dart';
+import '../utils/app_values.dart';
 
-class StreamTextField extends StatelessWidget {
+class MyStreamTextField extends StatelessWidget {
   final TextEditingController controller;
   final Stream<bool> stream;
   final String hintText;
@@ -12,8 +13,10 @@ class StreamTextField extends StatelessWidget {
   final TextInputType? inputType;
   final bool? obsecureText;
   final Widget? suffixIcon;
+  final List<TextInputFormatter>? inputFormatters;
+  final Function(String)? onChanged;
 
-  const StreamTextField({
+  const MyStreamTextField({
     super.key,
     required this.controller,
     required this.stream,
@@ -23,6 +26,8 @@ class StreamTextField extends StatelessWidget {
     this.inputType = TextInputType.text,
     this.obsecureText = false,
     this.suffixIcon,
+    this.inputFormatters,
+    this.onChanged,
   });
 
   @override
@@ -34,8 +39,10 @@ class StreamTextField extends StatelessWidget {
           controller: controller,
           keyboardType: inputType,
           textInputAction: TextInputAction.next,
+          inputFormatters: inputFormatters,
           cursorColor: AppColors.primary,
           obscureText: obsecureText!,
+          onChanged: onChanged,
           decoration: InputDecoration(
             hintText: hintText,
             prefixIcon: Padding(

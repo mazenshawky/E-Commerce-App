@@ -1,7 +1,8 @@
 import 'package:e_commerce_app/core/utils/media_query_values.dart';
 import 'package:e_commerce_app/core/widgets/my_button.dart';
-import 'package:e_commerce_app/modules/auth/presentation/components/stream_text_field.dart';
+import 'package:e_commerce_app/core/widgets/my_stream_text_field.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/utils/app_strings.dart';
@@ -41,7 +42,7 @@ class SignupAuthForm extends StatelessWidget {
       key: signupFormKey,
       child: Column(
         children: [
-          StreamTextField(
+          MyStreamTextField(
             controller: firstnameController,
             stream: BlocProvider.of<SignupCubit>(context).outIsFirstnameValid,
             hintText: AppStrings.firstname,
@@ -50,7 +51,7 @@ class SignupAuthForm extends StatelessWidget {
             inputType: TextInputType.name,
           ),
           const SizedBox(height: AppSize.s16),
-          StreamTextField(
+          MyStreamTextField(
             controller: lastnameController,
             stream: BlocProvider.of<SignupCubit>(context).outIsLastnameValid,
             hintText: AppStrings.lastname,
@@ -59,7 +60,7 @@ class SignupAuthForm extends StatelessWidget {
             inputType: TextInputType.name,
           ),
           const SizedBox(height: AppSize.s16),
-          StreamTextField(
+          MyStreamTextField(
             controller: emailController,
             stream: BlocProvider.of<SignupCubit>(context).outIsEmailValid,
             hintText: AppStrings.email,
@@ -68,16 +69,17 @@ class SignupAuthForm extends StatelessWidget {
             inputType: TextInputType.emailAddress,
           ),
           const SizedBox(height: AppSize.s16),
-          StreamTextField(
+          MyStreamTextField(
             controller: phoneController,
             stream: BlocProvider.of<SignupCubit>(context).outIsPhoneValid,
             hintText: AppStrings.phone,
             leadingIcon: Icons.phone,
             errorText: AppStrings.invalidPhone,
             inputType: TextInputType.phone,
+            inputFormatters: [FilteringTextInputFormatter.digitsOnly],
           ),
           const SizedBox(height: AppSize.s16),
-          StreamTextField(
+          MyStreamTextField(
             controller: usernameController,
             stream: BlocProvider.of<SignupCubit>(context).outIsUsernameValid,
             hintText: AppStrings.username,
@@ -88,7 +90,7 @@ class SignupAuthForm extends StatelessWidget {
           StreamBuilder<bool>(
             stream: BlocProvider.of<SignupCubit>(context).outIsPasswordVisible,
             builder: (context, snapshot) {
-              return StreamTextField(
+              return MyStreamTextField(
                 controller: passwordController,
                 stream:
                     BlocProvider.of<SignupCubit>(context).outIsPasswordValid,
@@ -109,7 +111,7 @@ class SignupAuthForm extends StatelessWidget {
               );
             },
           ),
-          StreamTextField(
+          MyStreamTextField(
             controller: cityController,
             stream: BlocProvider.of<SignupCubit>(context).outIsCityValid,
             hintText: AppStrings.city,
@@ -117,7 +119,7 @@ class SignupAuthForm extends StatelessWidget {
             errorText: AppStrings.invalidCity,
           ),
           const SizedBox(height: AppSize.s16),
-          StreamTextField(
+          MyStreamTextField(
             controller: streetController,
             stream: BlocProvider.of<SignupCubit>(context).outIsStreetValid,
             hintText: AppStrings.street,
@@ -126,13 +128,13 @@ class SignupAuthForm extends StatelessWidget {
             inputType: TextInputType.streetAddress,
           ),
           const SizedBox(height: AppSize.s16),
-          StreamTextField(
+          MyStreamTextField(
             controller: zipCodeController,
             stream: BlocProvider.of<SignupCubit>(context).outIsZipCodeValid,
             hintText: AppStrings.zipCode,
             leadingIcon: Icons.location_history,
             errorText: AppStrings.invalidzipCode,
-            inputType: TextInputType.number,
+            inputFormatters: [FilteringTextInputFormatter.digitsOnly],
           ),
           const SizedBox(height: AppSize.s16),
           StreamBuilder<bool>(

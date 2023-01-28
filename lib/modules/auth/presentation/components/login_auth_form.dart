@@ -1,6 +1,6 @@
 import 'package:e_commerce_app/core/utils/media_query_values.dart';
 import 'package:e_commerce_app/core/widgets/my_button.dart';
-import 'package:e_commerce_app/modules/auth/presentation/components/stream_text_field.dart';
+import 'package:e_commerce_app/core/widgets/my_stream_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -28,7 +28,7 @@ class LoginAuthForm extends StatelessWidget {
       key: loginFormKey,
       child: Column(
         children: [
-          StreamTextField(
+          MyStreamTextField(
             controller: usernameController,
             stream: BlocProvider.of<LoginCubit>(context).outIsUsernameValid,
             hintText: AppStrings.username,
@@ -39,7 +39,7 @@ class LoginAuthForm extends StatelessWidget {
           StreamBuilder<bool>(
             stream: BlocProvider.of<LoginCubit>(context).outIsPasswordVisible,
             builder: (context, snapshot) {
-              return StreamTextField(
+              return MyStreamTextField(
                 controller: passwordController,
                 stream: BlocProvider.of<LoginCubit>(context).outIsPasswordValid,
                 hintText: AppStrings.password,

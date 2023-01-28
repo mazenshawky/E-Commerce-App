@@ -88,7 +88,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
             children: [
               const StateAnimationImage(animationImage: JsonAssets.loading),
               const StateText(text: AppStrings.loading),
-              const SizedBox(height: 20),
+              const SizedBox(height: AppSize.s20),
             ],
           );
         }

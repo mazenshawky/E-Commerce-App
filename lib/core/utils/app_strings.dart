@@ -45,9 +45,20 @@ class AppStrings {
   static const String editProduct = 'Edit Product';
   static const String deleteProduct = 'Delete Product';
   static const String totalPrice = 'Total Price: ';
-  static const String colors = 'Colors';
+  static const String title = 'Title';
+  static const String price = 'Price';
+  static const String description = 'Description';
+  static const String category = 'Category';
+  static const String image = 'Image';
+  static const String invalidTitle = 'Title should be at least 3 chars';
+  static const String invalidPrice = 'Price should be at least 10\$';
+  static const String invalidDesciption =
+      'Description should be at least 10 chars';
+  static const String photoCamera = 'Photo from camera';
+  static const String photoGallery = 'Photo from galley';
   static const String addToCart = 'Add to cart';
   static const String addedSuccessfully = 'Added Successfully';
+  static const String editedSuccessfully = 'Edited Successfully';
   static const String checkout = 'Checkout';
   static const String userInformation = 'User Information';
   static const String changeLanguage = 'Change Language';

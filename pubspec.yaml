@@ -38,6 +38,7 @@ dependencies:
   flutter_bloc: ^8.1.1
   freezed: ^2.3.2
   get_it: ^7.2.0
+  image_picker: ^0.8.6+1
   internet_connection_checker: ^1.0.0+1
   lottie: ^2.2.0
   shared_preferences: ^2.0.17

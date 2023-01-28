@@ -22,6 +22,7 @@ import 'package:e_commerce_app/modules/products/domain/usecases/get_all_products
 import 'package:e_commerce_app/modules/cart/domain/usecases/get_cart_usecase.dart';
 import 'package:e_commerce_app/modules/products/domain/usecases/get_product_details_usecase.dart';
 import 'package:e_commerce_app/modules/products/presentation/cubit/edit_product/edit_product_cubit.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../modules/auth/domain/usecases/login_usecase.dart';
 import '../modules/auth/presentation/cubit/signup/signup_cubit.dart';
@@ -129,6 +130,7 @@ Future<void> init() async {
   sl.registerLazySingleton(() => InternetConnectionChecker());
   sl.registerLazySingleton(() => Dio());
   sl.registerLazySingleton(() => AppBlocObserver());
+  sl.registerFactory<ImagePicker>(() => ImagePicker());
 }
 
 void initBlocObserver() {
