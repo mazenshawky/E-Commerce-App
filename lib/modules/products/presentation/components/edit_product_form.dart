@@ -1,4 +1,5 @@
 import 'package:e_commerce_app/core/utils/app_colors.dart';
+import 'package:e_commerce_app/modules/products/domain/entities/product.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -16,16 +17,20 @@ class EditProductForm extends StatefulWidget {
   final TextEditingController priceController;
   final TextEditingController descriptionController;
   final GlobalKey<FormState> editProductFormKey;
-  final dynamic productId;
+  final Product product;
 
-  const EditProductForm({
+  EditProductForm({
     super.key,
     required this.titleController,
     required this.priceController,
     required this.descriptionController,
     required this.editProductFormKey,
-    required this.productId,
-  });
+    required this.product,
+  }) {
+    titleController.text = product.title;
+    priceController.text = product.price.toString();
+    descriptionController.text = product.description;
+  }
 
   @override
   State<EditProductForm> createState() => _EditProductFormState();
@@ -44,6 +49,8 @@ class _EditProductFormState extends State<EditProductForm> {
             child: Center(child: CircularProgressIndicator()),
           );
         } else if (state is CategoriesLoaded) {
+          _category = widget.product.category;
+          BlocProvider.of<EditProductCubit>(context).setCategory(_category!);
           return DropdownButtonFormField<String>(
             onChanged: _categoryChanged,
             value: _category,
@@ -119,7 +126,7 @@ class _EditProductFormState extends State<EditProductForm> {
             errorText: AppStrings.invalidDesciption,
           ),
           const SizedBox(height: AppSize.s16),
-          MyImageField(),
+          MyImageField(preImage: widget.product.image),
           const SizedBox(height: AppSize.s16),
           _buildCategoriesBloc(),
           const SizedBox(height: AppSize.s16),
@@ -130,7 +137,7 @@ class _EditProductFormState extends State<EditProductForm> {
               return MyButton(
                 onPress: (snapshot.data ?? false)
                     ? () => BlocProvider.of<EditProductCubit>(context)
-                        .editProduct(productId: widget.productId)
+                        .editProduct(productId: widget.product.id!)
                     : null,
                 text: AppStrings.editProduct,
               );

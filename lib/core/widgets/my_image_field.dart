@@ -15,8 +15,9 @@ import '../utils/constants.dart';
 
 class MyImageField extends StatelessWidget {
   final ImagePicker _imagePicker = di.sl<ImagePicker>();
+  final String preImage;
 
-  MyImageField({super.key});
+  MyImageField({super.key, required this.preImage});
 
   _imageFromGallery(BuildContext context) async {
     var image = await _imagePicker.pickImage(source: ImageSource.gallery);
@@ -30,11 +31,12 @@ class MyImageField extends StatelessWidget {
         .setImage(File(image?.path ?? ""));
   }
 
-  Widget _imagePickedByUser(File? image) {
+  Widget _imagePickedByUser(BuildContext context, File? image) {
     if (image != null && image.path.isNotEmpty) {
       return Image.file(image);
     } else {
-      return Container();
+      BlocProvider.of<EditProductCubit>(context).setImage(File(''));
+      return Image.network(preImage);
     }
   }
 
@@ -49,7 +51,7 @@ class MyImageField extends StatelessWidget {
               child: StreamBuilder<File>(
             stream: BlocProvider.of<EditProductCubit>(context).outImage,
             builder: (context, snapshot) {
-              return _imagePickedByUser(snapshot.data);
+              return _imagePickedByUser(context, snapshot.data);
             },
           )),
           const Flexible(

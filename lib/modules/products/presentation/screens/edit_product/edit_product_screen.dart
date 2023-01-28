@@ -15,9 +15,9 @@ import '../../cubit/categories/categories_cubit.dart';
 import '../../cubit/edit_product/edit_product_cubit.dart';
 
 class EditProductScreen extends StatefulWidget {
-  final dynamic productId;
+  final dynamic product;
 
-  const EditProductScreen({super.key, required this.productId});
+  const EditProductScreen({super.key, required this.product});
 
   @override
   State<EditProductScreen> createState() => _EditProductScreenState();
@@ -117,7 +117,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
                 priceController: _priceController,
                 descriptionController: _descriptionController,
                 editProductFormKey: _editProductFormKey,
-                productId: widget.productId,
+                product: widget.product,
               ),
             ),
             _buildEditProductButtonPressedBloc(),

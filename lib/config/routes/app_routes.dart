@@ -88,7 +88,7 @@ class AppRoutes {
         );
 
       case Routes.editProductRoute:
-        final productId = routeSettings.arguments;
+        final product = routeSettings.arguments;
         return MaterialPageRoute(
           builder: (context) => MultiBlocProvider(
             providers: [
@@ -99,7 +99,7 @@ class AppRoutes {
                 create: (context) => di.sl<CategoriesCubit>(),
               ),
             ],
-            child: EditProductScreen(productId: productId),
+            child: EditProductScreen(product: product),
           ),
         );
 

@@ -89,7 +89,7 @@ class EditProductCubit extends Cubit<EditProductState>
       productObject = productObject.copyWith(image: image.path);
     } else {
       // reset image value in product object
-      productObject = productObject.copyWith(image: '');
+      productObject = productObject.copyWith(image: 'empty');
     }
     inputAreAllInputsValid.add(null);
   }

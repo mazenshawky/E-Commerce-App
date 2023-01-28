@@ -165,7 +165,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                               editPressed: () =>
                                   Navigator.of(context).pushNamed(
                                 Routes.editProductRoute,
-                                arguments: widget.productId,
+                                arguments: state.productDetails,
                               ),
                             ),
                           ),
