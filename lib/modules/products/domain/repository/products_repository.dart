@@ -6,12 +6,16 @@ import 'package:e_commerce_app/modules/products/domain/usecases/get_product_deta
 import '../../../../core/error/failure.dart';
 import '../usecases/delete_product_usecase.dart';
 import '../usecases/get_filtered_products.dart';
+import '../usecases/get_sorted_products.dart';
 
 abstract class ProductsRepository {
   Future<Either<Failure, List<Product>>> getAllProducts();
 
   Future<Either<Failure, List<Product>>> getFilteredProducts(
       FilteredProductsParameters parameters);
+
+  Future<Either<Failure, List<Product>>> getSortedProducts(
+      SortedProductsParameters parameters);
 
   Future<Either<Failure, List<String>>> getAllCategories();
 

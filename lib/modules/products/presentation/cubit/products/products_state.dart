@@ -29,6 +29,15 @@ class FilteredProductsLoaded extends ProductsState {
   List<Object> get props => [filteredProducts];
 }
 
+class SortedProductsLoaded extends ProductsState {
+  final List<Product> sortedProducts;
+
+  const SortedProductsLoaded({required this.sortedProducts});
+
+  @override
+  List<Object> get props => [sortedProducts];
+}
+
 class ProductsError extends ProductsState {
   final String message;
 

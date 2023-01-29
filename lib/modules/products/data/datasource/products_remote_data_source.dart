@@ -5,11 +5,16 @@ import 'package:e_commerce_app/modules/products/domain/usecases/delete_product_u
 import 'package:e_commerce_app/modules/products/domain/usecases/get_filtered_products.dart';
 import 'package:e_commerce_app/modules/products/domain/usecases/get_product_details_usecase.dart';
 
+import '../../domain/usecases/get_sorted_products.dart';
+
 abstract class ProductsRemoteDataSource {
   Future<List<ProductModel>> getAllProducts();
 
   Future<List<ProductModel>> getFilteredProducts(
       FilteredProductsParameters parameters);
+
+  Future<List<ProductModel>> getSortedProducts(
+      SortedProductsParameters parameters);
 
   Future<List<String>> getAllCategories();
 
@@ -40,6 +45,16 @@ class ProductsRemoteDataSourceImpl implements ProductsRemoteDataSource {
       FilteredProductsParameters parameters) async {
     final response = await apiConsumer
         .get(EndPoints.filteredProductsPath(parameters.category));
+
+    return List<ProductModel>.from(
+        (response as List).map((product) => ProductModel.fromJson(product)));
+  }
+
+  @override
+  Future<List<ProductModel>> getSortedProducts(
+      SortedProductsParameters parameters) async {
+    final response = await apiConsumer.get(EndPoints.sortedProductsPath,
+        queryParameters: EndPoints.sortedProductsQuery(parameters.sortType));
 
     return List<ProductModel>.from(
         (response as List).map((product) => ProductModel.fromJson(product)));

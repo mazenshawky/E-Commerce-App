@@ -3,6 +3,7 @@ import 'package:e_commerce_app/modules/auth/presentation/screens/signup/signup_s
 import 'package:e_commerce_app/modules/products/presentation/cubit/product_details/product_details_cubit.dart';
 import 'package:e_commerce_app/modules/home/presentation/screens/home/home_screen.dart';
 import 'package:e_commerce_app/modules/products/presentation/screens/add_product/add_product_screen.dart';
+import 'package:e_commerce_app/modules/products/presentation/screens/filters/filters_screen.dart';
 import 'package:e_commerce_app/modules/products/presentation/screens/product_details/product_details_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -31,6 +32,7 @@ class Routes {
   static const String productDetailsRoute = '/product-details';
   static const String editProductRoute = '/edit-product';
   static const String addProductRoute = '/add-product';
+  static const String filterProductsRoute = '/filter-products';
 }
 
 class AppRoutes {
@@ -59,8 +61,8 @@ class AppRoutes {
         return MaterialPageRoute(
           builder: (context) => MultiBlocProvider(
             providers: [
-              BlocProvider(
-                create: (context) => di.sl<ProductsCubit>(),
+              BlocProvider<ProductsCubit>.value(
+                value: di.sl<ProductsCubit>(),
               ),
               BlocProvider(
                 create: (context) => di.sl<CategoriesCubit>(),
@@ -95,6 +97,14 @@ class AppRoutes {
               ),
             ],
             child: ProductDetailsScreen(productId: productId),
+          ),
+        );
+
+      case Routes.filterProductsRoute:
+        return MaterialPageRoute(
+          builder: (context) => BlocProvider<ProductsCubit>.value(
+            value: di.sl<ProductsCubit>(),
+            child: const FiltersScreen(),
           ),
         );
 

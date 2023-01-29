@@ -7,6 +7,8 @@ class EndPoints {
 
   static const String allProductsPath = "$baseUrl/products";
 
+  static const String sortedProductsPath = "$baseUrl/products";
+
   static const String addProductPath = "$baseUrl/products";
 
   static const String allCategoriesPath = "$baseUrl/products/categories";
@@ -30,4 +32,8 @@ class EndPoints {
   static String deleteCartPath(int cartId) => "$baseUrl/carts/$cartId";
 
   static String userProfilePath(int userId) => "$baseUrl/users/$userId";
+
+  static Map<String, dynamic> sortedProductsQuery(String sortType) => {
+        'sort': sortType,
+      };
 }

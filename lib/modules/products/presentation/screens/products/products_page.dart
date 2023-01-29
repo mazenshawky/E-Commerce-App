@@ -22,7 +22,6 @@ class _ProductsPageState extends State<ProductsPage> {
   String _text = '';
 
   bool _containsSearchText(Product product) {
-    print('how is that');
     final title = product.title;
     final textLower = _text.toLowerCase();
     final productLower = title.toLowerCase();
@@ -94,6 +93,10 @@ class _ProductsPageState extends State<ProductsPage> {
         } else if (state is FilteredProductsLoaded) {
           final filteredProducts = state.filteredProducts;
           final products = filteredProducts.where(_containsSearchText).toList();
+          return MyGridView(products: products);
+        } else if (state is SortedProductsLoaded) {
+          final sortedProducts = state.sortedProducts;
+          final products = sortedProducts.where(_containsSearchText).toList();
           return MyGridView(products: products);
         } else {
           return const Expanded(

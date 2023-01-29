@@ -1,3 +1,4 @@
+import 'package:e_commerce_app/config/routes/app_routes.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../core/utils/app_colors.dart';
@@ -50,7 +51,11 @@ class _MySearchFieldState extends State<MySearchField> {
                     FocusScope.of(context).requestFocus(FocusNode());
                   },
                 )
-              : null,
+              : GestureDetector(
+                  child: Icon(Icons.filter_alt, color: style.color),
+                  onTap: () =>
+                      Navigator.pushNamed(context, Routes.filterProductsRoute),
+                ),
           hintText: widget.hintText,
           hintStyle: style,
           border: InputBorder.none,

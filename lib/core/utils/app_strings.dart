@@ -67,6 +67,10 @@ class AppStrings {
       'Are you sure you want to delete this cart?';
   static const String yes = 'Yes';
   static const String no = 'No';
+  static const String filters = 'Filters';
+  static const String removeAllFilters = 'Remove all filters';
+  static const String sortAscending = 'Sort ascending';
+  static const String sortDescending = 'Sort descending';
   static const String checkout = 'Checkout';
   static const String userInformation = 'User Information';
   static const String changeLanguage = 'Change Language';
