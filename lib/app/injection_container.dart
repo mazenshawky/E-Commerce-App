@@ -33,6 +33,7 @@ import '../modules/cart/presentation/cubit/delete_cart/delete_cart_cubit.dart';
 import '../modules/products/domain/usecases/add_product_usecase.dart';
 import '../modules/products/domain/usecases/delete_product_usecase.dart';
 import '../modules/products/domain/usecases/get_all_categories_usecase.dart';
+import '../modules/products/domain/usecases/get_filtered_products.dart';
 import '../modules/products/presentation/cubit/add_product/add_product_cubit.dart';
 import '../modules/products/presentation/cubit/categories/categories_cubit.dart';
 import '../modules/products/presentation/cubit/delete_product/delete_product_cubit.dart';
@@ -55,8 +56,8 @@ Future<void> init() async {
   sl.registerFactory<ProfileCubit>(
       () => ProfileCubit(getProfileUseCase: sl(), appPreferences: sl()));
 
-  sl.registerFactory<ProductsCubit>(
-      () => ProductsCubit(getAllProductsUseCase: sl()));
+  sl.registerFactory<ProductsCubit>(() => ProductsCubit(
+      getAllProductsUseCase: sl(), getFilteredProductsUseCase: sl()));
   sl.registerFactory<CategoriesCubit>(
       () => CategoriesCubit(getAllCategoriesUseCase: sl()));
   sl.registerFactory<ProductDetailsCubit>(
@@ -85,6 +86,8 @@ Future<void> init() async {
 
   sl.registerLazySingleton<GetAllProductsUseCase>(
       () => GetAllProductsUseCase(productsRepository: sl()));
+  sl.registerLazySingleton<GetFilteredProductsUseCase>(
+      () => GetFilteredProductsUseCase(productsRepository: sl()));
   sl.registerLazySingleton<GetAllCategoriesUseCase>(
       () => GetAllCategoriesUseCase(productsRepository: sl()));
   sl.registerLazySingleton<GetProductDetailsUseCase>(

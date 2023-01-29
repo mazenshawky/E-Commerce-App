@@ -2,10 +2,14 @@ import 'package:e_commerce_app/core/api/end_points.dart';
 import 'package:e_commerce_app/core/api/api_consumer.dart';
 import 'package:e_commerce_app/modules/products/data/models/product_model.dart';
 import 'package:e_commerce_app/modules/products/domain/usecases/delete_product_usecase.dart';
+import 'package:e_commerce_app/modules/products/domain/usecases/get_filtered_products.dart';
 import 'package:e_commerce_app/modules/products/domain/usecases/get_product_details_usecase.dart';
 
 abstract class ProductsRemoteDataSource {
   Future<List<ProductModel>> getAllProducts();
+
+  Future<List<ProductModel>> getFilteredProducts(
+      FilteredProductsParameters parameters);
 
   Future<List<String>> getAllCategories();
 
@@ -26,6 +30,16 @@ class ProductsRemoteDataSourceImpl implements ProductsRemoteDataSource {
   @override
   Future<List<ProductModel>> getAllProducts() async {
     final response = await apiConsumer.get(EndPoints.allProductsPath);
+
+    return List<ProductModel>.from(
+        (response as List).map((product) => ProductModel.fromJson(product)));
+  }
+
+  @override
+  Future<List<ProductModel>> getFilteredProducts(
+      FilteredProductsParameters parameters) async {
+    final response = await apiConsumer
+        .get(EndPoints.filteredProductsPath(parameters.category));
 
     return List<ProductModel>.from(
         (response as List).map((product) => ProductModel.fromJson(product)));

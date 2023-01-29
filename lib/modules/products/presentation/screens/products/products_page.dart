@@ -4,7 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../core/utils/app_strings.dart';
+import '../../../../../core/utils/app_values.dart';
+import '../../../../../core/utils/dummy.dart';
 import '../../../domain/entities/product.dart';
+import '../../components/category_card.dart';
+import '../../cubit/categories/categories_cubit.dart';
 import '../../cubit/products/products_cubit.dart';
 
 class ProductsPage extends StatefulWidget {
@@ -18,6 +22,7 @@ class _ProductsPageState extends State<ProductsPage> {
   String _text = '';
 
   bool _containsSearchText(Product product) {
+    print('how is that');
     final title = product.title;
     final textLower = _text.toLowerCase();
     final productLower = title.toLowerCase();
@@ -25,13 +30,58 @@ class _ProductsPageState extends State<ProductsPage> {
     return productLower.contains(textLower);
   }
 
-  @override
-  Widget build(BuildContext context) {
+  Widget _buildCategoriesBloc() {
+    return BlocBuilder<CategoriesCubit, CategoriesState>(
+      builder: (context, state) {
+        if (state is CategoriesLoading) {
+          return const Expanded(
+            flex: 1,
+            child: Center(child: CircularProgressIndicator()),
+          );
+        } else if (state is CategoriesError) {
+          return Center(
+            child: Text(state.message),
+          );
+        } else if (state is CategoriesLoaded) {
+          return SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Padding(
+              padding: const EdgeInsets.all(AppPadding.p16),
+              child: Row(
+                children: List.generate(
+                  state.categories.length,
+                  (index) => Padding(
+                    padding: const EdgeInsets.only(right: AppPadding.p16),
+                    child: CategoryCard(
+                      title: state.categories[index],
+                      icon: categoriesIcons[index],
+                      press: () => BlocProvider.of<ProductsCubit>(context)
+                          .getFilteredProducts(
+                        category: state.categories[index],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          );
+        } else {
+          return const Expanded(
+            flex: 1,
+            child: Center(child: CircularProgressIndicator()),
+          );
+        }
+      },
+    );
+  }
+
+  Widget _buildProductsBLoc() {
     return BlocBuilder<ProductsCubit, ProductsState>(
       builder: (context, state) {
         if (state is ProductsLoading) {
-          return const Center(
-            child: CircularProgressIndicator(),
+          return const Expanded(
+            flex: 7,
+            child: Center(child: CircularProgressIndicator()),
           );
         } else if (state is ProductsError) {
           return Center(
@@ -40,23 +90,33 @@ class _ProductsPageState extends State<ProductsPage> {
         } else if (state is ProductsLoaded) {
           final allProducts = state.products;
           final products = allProducts.where(_containsSearchText).toList();
-
-          return Column(
-            children: [
-              MySearchField(
-                text: _text,
-                onChanged: (text) => setState(() => _text = text),
-                hintText: AppStrings.search,
-              ),
-              MyGridView(products: products),
-            ],
-          );
+          return MyGridView(products: products);
+        } else if (state is FilteredProductsLoaded) {
+          final filteredProducts = state.filteredProducts;
+          final products = filteredProducts.where(_containsSearchText).toList();
+          return MyGridView(products: products);
         } else {
-          return const Center(
-            child: CircularProgressIndicator(),
+          return const Expanded(
+            flex: 7,
+            child: Center(child: CircularProgressIndicator()),
           );
         }
       },
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        MySearchField(
+          text: _text,
+          onChanged: (text) => setState(() => _text = text),
+          hintText: AppStrings.search,
+        ),
+        _buildCategoriesBloc(),
+        _buildProductsBLoc(),
+      ],
     );
   }
 }

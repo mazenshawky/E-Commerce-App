@@ -31,7 +31,7 @@ class _MySearchFieldState extends State<MySearchField> {
     return Container(
       height: AppSize.s45,
       margin: const EdgeInsets.fromLTRB(
-          AppSize.s16, AppSize.s0, AppSize.s16, AppSize.s16),
+          AppMargins.m16, AppMargins.m0, AppMargins.m16, AppMargins.m0),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(AppSize.s12),
         color: AppColors.whiteColor,

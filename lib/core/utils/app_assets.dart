@@ -1,4 +1,12 @@
 const String jsonPath = "assets/json";
+const String iconPath = "assets/icons";
+
+class IconAssets {
+  static const String electronicsIcon = "$iconPath/electronics.svg";
+  static const String jewelryIcon = "$iconPath/jewelry.svg";
+  static const String menIcon = "$iconPath/men.svg";
+  static const String womenIcon = "$iconPath/women.svg";
+}
 
 class JsonAssets {
   static const String loading = "$jsonPath/loading.json";

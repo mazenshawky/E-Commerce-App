@@ -7,6 +7,7 @@ import 'package:e_commerce_app/modules/products/data/models/product_model.dart';
 import 'package:e_commerce_app/modules/products/domain/entities/product.dart';
 import 'package:e_commerce_app/modules/products/domain/repository/products_repository.dart';
 import 'package:e_commerce_app/modules/products/domain/usecases/delete_product_usecase.dart';
+import 'package:e_commerce_app/modules/products/domain/usecases/get_filtered_products.dart';
 import 'package:e_commerce_app/modules/products/domain/usecases/get_product_details_usecase.dart';
 
 class ProductsRepositoryImpl implements ProductsRepository {
@@ -23,6 +24,22 @@ class ProductsRepositoryImpl implements ProductsRepository {
     if (await networkInfo.isConnected) {
       try {
         final remoteProducts = await productsRemoteDataSource.getAllProducts();
+        return Right(remoteProducts);
+      } on ServerException {
+        return Left(ServerFailure());
+      }
+    } else {
+      return Left(InternetFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<Product>>> getFilteredProducts(
+      FilteredProductsParameters parameters) async {
+    if (await networkInfo.isConnected) {
+      try {
+        final remoteProducts =
+            await productsRemoteDataSource.getFilteredProducts(parameters);
         return Right(remoteProducts);
       } on ServerException {
         return Left(ServerFailure());
