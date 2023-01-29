@@ -9,6 +9,8 @@ class EndPoints {
 
   static const String sortedProductsPath = "$baseUrl/products";
 
+  static const String limitedProductsPath = "$baseUrl/products";
+
   static const String addProductPath = "$baseUrl/products";
 
   static const String allCategoriesPath = "$baseUrl/products/categories";
@@ -35,5 +37,9 @@ class EndPoints {
 
   static Map<String, dynamic> sortedProductsQuery(String sortType) => {
         'sort': sortType,
+      };
+
+  static Map<String, dynamic> limitedProductsQuery(String limit) => {
+        'limit': limit,
       };
 }

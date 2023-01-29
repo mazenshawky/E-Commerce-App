@@ -71,6 +71,7 @@ class AppStrings {
   static const String removeAllFilters = 'Remove all filters';
   static const String sortAscending = 'Sort ascending';
   static const String sortDescending = 'Sort descending';
+  static const String limit = 'limit';
   static const String checkout = 'Checkout';
   static const String userInformation = 'User Information';
   static const String changeLanguage = 'Change Language';

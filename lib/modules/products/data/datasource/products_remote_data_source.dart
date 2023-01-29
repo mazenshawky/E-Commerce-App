@@ -2,10 +2,11 @@ import 'package:e_commerce_app/core/api/end_points.dart';
 import 'package:e_commerce_app/core/api/api_consumer.dart';
 import 'package:e_commerce_app/modules/products/data/models/product_model.dart';
 import 'package:e_commerce_app/modules/products/domain/usecases/delete_product_usecase.dart';
-import 'package:e_commerce_app/modules/products/domain/usecases/get_filtered_products.dart';
+import 'package:e_commerce_app/modules/products/domain/usecases/get_filtered_products_usecase.dart';
 import 'package:e_commerce_app/modules/products/domain/usecases/get_product_details_usecase.dart';
 
-import '../../domain/usecases/get_sorted_products.dart';
+import '../../domain/usecases/get_limited_proudcts_usecase.dart';
+import '../../domain/usecases/get_sorted_products_usecase.dart';
 
 abstract class ProductsRemoteDataSource {
   Future<List<ProductModel>> getAllProducts();
@@ -15,6 +16,9 @@ abstract class ProductsRemoteDataSource {
 
   Future<List<ProductModel>> getSortedProducts(
       SortedProductsParameters parameters);
+
+  Future<List<ProductModel>> getLimitedProducts(
+      LimitedProductsParameters parameters);
 
   Future<List<String>> getAllCategories();
 
@@ -55,6 +59,16 @@ class ProductsRemoteDataSourceImpl implements ProductsRemoteDataSource {
       SortedProductsParameters parameters) async {
     final response = await apiConsumer.get(EndPoints.sortedProductsPath,
         queryParameters: EndPoints.sortedProductsQuery(parameters.sortType));
+
+    return List<ProductModel>.from(
+        (response as List).map((product) => ProductModel.fromJson(product)));
+  }
+
+  @override
+  Future<List<ProductModel>> getLimitedProducts(
+      LimitedProductsParameters parameters) async {
+    final response = await apiConsumer.get(EndPoints.limitedProductsPath,
+        queryParameters: EndPoints.limitedProductsQuery(parameters.limit));
 
     return List<ProductModel>.from(
         (response as List).map((product) => ProductModel.fromJson(product)));

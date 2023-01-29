@@ -2,6 +2,7 @@ import 'package:e_commerce_app/modules/products/presentation/cubit/products/prod
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../../core/utils/app_colors.dart';
 import '../../../../../core/utils/app_strings.dart';
 import '../../../../../core/utils/app_values.dart';
 import '../../../../../core/utils/constants.dart';
@@ -10,6 +11,30 @@ import '../../../../../core/widgets/my_list_tile.dart';
 
 class FiltersScreen extends StatelessWidget {
   const FiltersScreen({super.key});
+
+  Widget _buildLimitField(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: AppPadding.p10),
+      child: DropdownButtonFormField<String>(
+        onChanged: (value) => _limitProducts(context, limit: value),
+        hint: const Text(AppStrings.limit),
+        icon: const Icon(
+          Icons.keyboard_arrow_down,
+          color: AppColors.blackColor45,
+        ),
+        items: BlocProvider.of<ProductsCubit>(context)
+            .productsIds
+            .map<DropdownMenuItem<String>>(
+          (String value) {
+            return DropdownMenuItem<String>(
+              value: value,
+              child: Text(value),
+            );
+          },
+        ).toList(),
+      ),
+    );
+  }
 
   Widget _buildFilterPressedBloc() {
     return BlocListener<ProductsCubit, ProductsState>(
@@ -20,7 +45,8 @@ class FiltersScreen extends StatelessWidget {
         }
         if (state is ProductsLoaded ||
             state is FilteredProductsLoaded ||
-            state is SortedProductsLoaded) {
+            state is SortedProductsLoaded ||
+            state is LimitedProductsLoaded) {
           Navigator.pop(context);
           Navigator.pop(context);
         }
@@ -33,18 +59,23 @@ class FiltersScreen extends StatelessWidget {
     );
   }
 
-  _removeFilters(BuildContext context) async {
+  void _removeFilters(BuildContext context) async {
     await BlocProvider.of<ProductsCubit>(context).getAllProducts();
   }
 
-  _sortAscending(BuildContext context) async {
+  void _sortAscending(BuildContext context) async {
     await BlocProvider.of<ProductsCubit>(context)
         .getSortedProducts(sortType: 'asc');
   }
 
-  _sortDescending(BuildContext context) async {
+  void _sortDescending(BuildContext context) async {
     await BlocProvider.of<ProductsCubit>(context)
         .getSortedProducts(sortType: 'desc');
+  }
+
+  void _limitProducts(BuildContext context, {required String? limit}) async {
+    await BlocProvider.of<ProductsCubit>(context)
+        .getLimitedProducts(limit: limit!);
   }
 
   @override
@@ -70,6 +101,8 @@ class FiltersScreen extends StatelessWidget {
               title: AppStrings.sortDescending,
               onTap: () => _sortDescending(context),
             ),
+            const SizedBox(height: AppSize.s10),
+            _buildLimitField(context),
             _buildFilterPressedBloc(),
           ],
         ),

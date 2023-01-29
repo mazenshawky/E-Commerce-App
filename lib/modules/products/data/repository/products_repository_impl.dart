@@ -7,9 +7,10 @@ import 'package:e_commerce_app/modules/products/data/models/product_model.dart';
 import 'package:e_commerce_app/modules/products/domain/entities/product.dart';
 import 'package:e_commerce_app/modules/products/domain/repository/products_repository.dart';
 import 'package:e_commerce_app/modules/products/domain/usecases/delete_product_usecase.dart';
-import 'package:e_commerce_app/modules/products/domain/usecases/get_filtered_products.dart';
+import 'package:e_commerce_app/modules/products/domain/usecases/get_filtered_products_usecase.dart';
+import 'package:e_commerce_app/modules/products/domain/usecases/get_limited_proudcts_usecase.dart';
 import 'package:e_commerce_app/modules/products/domain/usecases/get_product_details_usecase.dart';
-import 'package:e_commerce_app/modules/products/domain/usecases/get_sorted_products.dart';
+import 'package:e_commerce_app/modules/products/domain/usecases/get_sorted_products_usecase.dart';
 
 class ProductsRepositoryImpl implements ProductsRepository {
   final NetworkInfo networkInfo;
@@ -57,6 +58,22 @@ class ProductsRepositoryImpl implements ProductsRepository {
       try {
         final remoteProducts =
             await productsRemoteDataSource.getSortedProducts(parameters);
+        return Right(remoteProducts);
+      } on ServerException {
+        return Left(ServerFailure());
+      }
+    } else {
+      return Left(InternetFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<Product>>> getLimitedProducts(
+      LimitedProductsParameters parameters) async {
+    if (await networkInfo.isConnected) {
+      try {
+        final remoteProducts =
+            await productsRemoteDataSource.getLimitedProducts(parameters);
         return Right(remoteProducts);
       } on ServerException {
         return Left(ServerFailure());

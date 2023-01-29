@@ -98,6 +98,10 @@ class _ProductsPageState extends State<ProductsPage> {
           final sortedProducts = state.sortedProducts;
           final products = sortedProducts.where(_containsSearchText).toList();
           return MyGridView(products: products);
+        } else if (state is LimitedProductsLoaded) {
+          final limitedProducts = state.limitedProducts;
+          final products = limitedProducts.where(_containsSearchText).toList();
+          return MyGridView(products: products);
         } else {
           return const Expanded(
             flex: 7,
