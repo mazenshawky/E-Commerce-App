@@ -26,7 +26,7 @@ class Constants {
   static bool isPhoneValid(String phone) =>
       RegExp(r'^01(0|1|2|5)\d{1,8}$').hasMatch(phone) && phone.length == 11;
 
-  static bool isPriceValid(double price) => price >= 10.0;
+  static bool isPriceValid(double price) => price >= 7.0;
 
   static bool isImageValid(String image) => image.isNotEmpty;
 

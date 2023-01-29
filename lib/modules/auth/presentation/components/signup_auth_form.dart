@@ -135,6 +135,7 @@ class SignupAuthForm extends StatelessWidget {
             leadingIcon: Icons.location_history,
             errorText: AppStrings.invalidzipCode,
             inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+            inputType: TextInputType.number,
           ),
           const SizedBox(height: AppSize.s16),
           StreamBuilder<bool>(

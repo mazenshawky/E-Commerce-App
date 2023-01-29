@@ -51,7 +51,7 @@ class AppStrings {
   static const String category = 'Category';
   static const String image = 'Image';
   static const String invalidTitle = 'Title should be at least 3 chars';
-  static const String invalidPrice = 'Price should be at least 10\$';
+  static const String invalidPrice = 'Price should be at least 7\$';
   static const String invalidDesciption =
       'Description should be at least 10 chars';
   static const String photoCamera = 'Photo from camera';
